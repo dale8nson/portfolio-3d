@@ -18,10 +18,10 @@ export default function Home() {
 
   const canvasRef = useRef(null)
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+    <main className="flex min-h-screen flex-col items-center justify-between ">
       <Canvas ref={canvasRef}>
         <ambientLight color={0xffffff} />
-        <mesh className='main' position={vec3(0, 0, 0)} scale={vec3(1, 1, 1)}>
+        <mesh className='main' position={vec3(-3.5, 0, 0)} scale={vec3(.1, .1, 1)}>
           <planeGeometry args={[16, 10]} />
           <meshBasicMaterial color={0x000000} />
         </mesh>

@@ -1,15 +1,13 @@
+'use client'
+import { StoreProvider } from "@/lib/store";
 import "./globals.css";
-
-
-export const metadata = {
-  title: "Dale Tristan Hutchinson",
-  description: "Frontend Developer",
-};
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className=''>{children}</body>
+      <StoreProvider>
+        <body className='fixed'>{children}</body>
+      </StoreProvider>
     </html>
   );
 }
