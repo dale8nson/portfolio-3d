@@ -1,6 +1,6 @@
 'use client'
-import { StoreProvider } from "@/lib/store";
-import "./globals.css";
+import { StoreProvider } from '@/lib/store'
+import './globals.css'
 
 export default function RootLayout({ children }) {
   return (
@@ -9,5 +9,5 @@ export default function RootLayout({ children }) {
         <body className='fixed'>{children}</body>
       </StoreProvider>
     </html>
-  );
+  )
 }
