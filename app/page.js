@@ -105,15 +105,15 @@ export default function Home() {
           </Text3D>
         </motion.group>}
         <GLButton {...{ cubeMap: envMap }}>ENTER</GLButton>
-        <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:6, scaleY:1}} animate={{rotateY:0, scaleY:-1}} transition={{duration:24, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
+        <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:6, scaleY:1}} animate={{rotateY:0, scaleY:-1}} transition={{duration:13, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
           <sphereGeometry args={[1,96,96]} />
           <pointsMaterial attach='material' color={0xff4444} size={0.02} sizeAttenuation wireframe />
         </motion.points>
-        <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:-6, scaleX:1}} animate={{rotateY:0, scaleX:-1}} transition={{duration:24, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
+        <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:-6, scaleX:1}} animate={{rotateY:0, scaleX:-1}} transition={{duration:23, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
           <sphereGeometry args={[1,96,96]} />
           <pointsMaterial attach='material' color={0x44ff44} size={0.02} sizeAttenuation wireframe />
         </motion.points>
-        <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:-6, scaleZ:1}} animate={{rotateY:0, scaleZ:-1}} transition={{duration:24, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
+        <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:-6, scaleZ:1}} animate={{rotateY:0, scaleZ:-1}} transition={{duration:19, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
           <sphereGeometry args={[1,96,96]} />
           <pointsMaterial attach='material' color={0x4444ff} size={0.02} sizeAttenuation wireframe />
         </motion.points>
