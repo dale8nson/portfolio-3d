@@ -30,8 +30,8 @@ export const World = ({ worldMap }) => {
   return (
     <>
       {worldMap && (
-        <motion.mesh position={vec3(0, 0, 0)} scale={vec3(25, 25, 25)}>
-          <sphereGeometry args={[1, 1, 1]} />
+        <motion.mesh position={vec3(0, 0, 0)} scale={vec3(55, 55, 55)} >
+          <motion.sphereGeometry args={[1, 1, 1]} />
           <meshPhongMaterial envMap={worldMap} color={0xffffff} shininess={100} side={THREE.DoubleSide} />
         </motion.mesh>)}
     </>
