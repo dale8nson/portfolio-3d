@@ -54,9 +54,11 @@ export default function Home() {
       canvasRef.current.setAttribute('height', outerHeight)
     }
 
-    // if (process.env.BUILD === 'production') { 
+ 
     setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']))
-    // }
+
+
+
 
     setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt copy.png', 'sh_lf copy.png', 'sh_up copy.png', 'sh_dn copy.png', 'sh_bk copy.png', 'sh_ft copy.png']))
 
@@ -82,10 +84,14 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between bg-black ">
       {/* <Suspense> */}
       <Canvas ref={canvasRef}>
-        <hemisphereLight intensity={1} />
+        {/* <hemisphereLight intensity={1} /> */}
         {/* <World worldMap={worldMap} /> */}
         {/* <VideoBackdrop url='/riverclouds.mp4' /> */}
         {/* <ambientLight /> */}
+        {envMap && <motion.mesh position={vec3(0,0,0)} initial={{scaleX:1, scaleY:1}} animate={{scaleX:10, scaleY:10}} transition={{duration:20}}>
+          <planeGeometry args={[1,1]} />
+          <meshPhongMaterial shininess={0} emissive={0xcccccc} color={0x000000} transparent opacity={.65} />
+        </motion.mesh>}
         {envMap && <motion.mesh initial={{ x: -4, y: 5, z: 11, rotateY: 0, rotateX: -32 }} animate={{ x: -4, y: 2, z: 0, rotateY: 0, rotateX: 0 }} transition={{ duration: 5 }} style={{ transformOrigin: 'center' }} >
           <motion.pointLight initial={{ x: -5.5, y: -2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: 13, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />
           <motion.pointLight initial={{ x: 0, y: 2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: -5.5, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />
@@ -113,11 +119,11 @@ export default function Home() {
           <sphereGeometry args={[1,96,96]} />
           <pointsMaterial attach='material' color={0x44ff44} size={0.02} sizeAttenuation wireframe />
         </motion.points>
-        <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:-6, scaleZ:1}} animate={{rotateY:0, scaleZ:-1}} transition={{duration:19, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
+        {/* <motion.points position={vec3(0,1,0)} scale={vec3(6,6,6)} initial={{rotateY:-6, scaleZ:1}} animate={{rotateY:0, scaleZ:-1}} transition={{duration:19, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
           <sphereGeometry args={[1,96,96]} />
           <pointsMaterial attach='material' color={0x4444ff} size={0.02} sizeAttenuation wireframe />
         </motion.points>
-        <ParticleSystem />
+        <ParticleSystem /> */}
       </Canvas>
       {/* </Suspense> */}
     </main >
