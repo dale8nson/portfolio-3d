@@ -54,7 +54,7 @@ export default function Home() {
     }
 
     // if (process.env.BUILD === 'production') { 
-    setEnvMap(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']))
+    setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']))
     // }
 
     setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt copy.png', 'sh_lf copy.png', 'sh_up copy.png', 'sh_dn copy.png', 'sh_bk copy.png', 'sh_ft copy.png']))
