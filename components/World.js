@@ -19,7 +19,7 @@ export const World = ({ worldMap }) => {
     cameraClip.current = new THREE.AnimationClip('', 24, [new THREE.NumberKeyframeTrack('.rotation[y]', [0, 24], [.05, -.05]), new THREE.NumberKeyframeTrack('.position[x]', [0, 24], [-0.125, 0.125])])
     cameraAction.current = cameraMixer.current.clipAction(cameraClip.current)
     cameraAction.current.setLoop(THREE.LoopPingPong)
-    cameraAction.current.play()
+    // cameraAction.current.play()
 
   }, [camera])
 
