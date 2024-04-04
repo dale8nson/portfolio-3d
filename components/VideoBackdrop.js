@@ -1,5 +1,5 @@
-import { useVideoTexture } from "@react-three/drei"
-import { vec3 } from "@/lib/utils"
+import { useVideoTexture } from '@react-three/drei'
+import { vec3 } from '@/lib/utils'
 
 export const VideoBackdrop = ({ url }) => {
   const videoBackdrop = useVideoTexture(url)
