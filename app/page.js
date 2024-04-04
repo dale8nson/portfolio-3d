@@ -61,10 +61,16 @@ export default function Home() {
 
     // cubeMapRef.current = new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'])
 
-    envMap.mapping = THREE.CubeReflectionMapping
-    worldMap.mapping = THREE.CubeRefractionMapping
+    // envMap.mapping = THREE.CubeReflectionMapping
+    // worldMap.mapping = THREE.CubeRefractionMapping
 
   }, [])
+
+  if(envMapState && worldMapState) {
+
+    envMap.mapping = THREE.CubeReflectionMapping
+    worldMap.mapping = THREE.CubeRefractionMapping
+  }
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between bg-black ">
