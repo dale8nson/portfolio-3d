@@ -85,13 +85,20 @@ export const GLButton = forwardRef(function GLButton({ cubeMap, emissive, onClic
     unHoverMixer.current.update(delta)
   })
 
+  if(!cubeMap) return (
+    <div className='bg-black h-screen w-full flex align-middle justify-center'>
+      <div className='w-4/12 m-auto'>
+        <h1 className='text-white text-4xl'>LOADING...</h1>
+      </div>
 
+    </div>
+  )
   return (
     <>
       {cubeMap && <motion.mesh position={vec3(0, -1.2, 0)} initial={{scaleX:0.5, rotateX:0}} scale={vec3(0.5, 0.5, 0.5)} whileHover={{scaleX:1, rotateX:-1}} transition={{duration: 1}}  >
         <motion.pointLight initial={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1,1,1)} />
         <motion.pointLight initial={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0, opacity: 1 }} transition={{ duration: 2, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1,1,1)} />
-        <Text3D position={vec3(0, 0, 0)} scale={vec3(1, 1, 1)} font='/Kastellar_Regular.json' bevelEnabled bevelSegments={10} bevelSize={.001} bevelThickness={0.004} style={{ transformOrigin: 'center' }}  ref={initButtonNode} >
+        <Text3D position={vec3(0, 0, 0)} scale={vec3(1, 1, 1)} font='/Itai Protests_Regular.json' bevelEnabled bevelSegments={10} bevelSize={.001} bevelThickness={0.004} style={{ transformOrigin: 'center' }}  ref={initButtonNode} >
           {children}
           < motion.meshPhongMaterial initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, delay: 5 }} envMap={cubeMap} emissive={0x6666ff} attach='material-0' color={0x6666ff} shininess={100} refractionRatio={1} transparent />
           <motion.meshPhongMaterial initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, delay: 5 }} envMap={cubeMap} emissive={0x6666ff} attach='material-1' color={0x6666ee} shininess={100} refractionRatio={1} transparent />
