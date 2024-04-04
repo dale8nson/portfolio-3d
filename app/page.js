@@ -24,17 +24,18 @@ export default function Home() {
 
   let envMap, setEnvMap, worldMap, setWorldMap
 
-  const [envMapState, setCubeMapState] = useState(null)
+  const [envMapState, setEnvMapState] = useState(null)
   // const [cubeMapTex] = useLoader(THREE.CubeTextureLoader, [['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']])
   // if (process.env.BUILD === 'production')
   envMap = envMapState
   // else envMap = cubeMapTex
 
   const [worldMapState, setWorldMapState] = useState(null)
-  const [worldMapTex] = useLoader(THREE.CubeTextureLoader, [['sh_rt copy.png', 'sh_lf copy.png', 'sh_up copy.png', 'sh_dn copy.png', 'sh_bk copy.png', 'sh_ft copy.png']])
+  // const [worldMapTex] = useLoader(THREE.CubeTextureLoader, [['sh_rt copy.png', 'sh_lf copy.png', 'sh_up copy.png', 'sh_dn copy.png', 'sh_bk copy.png', 'sh_ft copy.png']])
 
-  if (process.env.BUILD === 'production') worldMap = worldMapState
-  else worldMap = worldMapTex
+  // if (process.env.BUILD === 'production') 
+  worldMap = worldMapState
+  // else worldMap = worldMapTex
 
   const initTextNode = node => {
     if (!node) return
@@ -55,6 +56,8 @@ export default function Home() {
     // if (process.env.BUILD === 'production') { 
     setEnvMap(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']))
     // }
+
+    setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt copy.png', 'sh_lf copy.png', 'sh_up copy.png', 'sh_dn copy.png', 'sh_bk copy.png', 'sh_ft copy.png']))
 
     // cubeMapRef.current = new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'])
 
