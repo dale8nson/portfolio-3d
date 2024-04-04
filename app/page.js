@@ -25,9 +25,10 @@ export default function Home() {
   let envMap, setEnvMap, worldMap, setWorldMap
 
   const [envMapState, setCubeMapState] = useState(null)
-  const [cubeMapTex] = useLoader(THREE.CubeTextureLoader, [['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']])
-  if (process.env.BUILD === 'production') envMap = envMapState
-  else envMap = cubeMapTex
+  // const [cubeMapTex] = useLoader(THREE.CubeTextureLoader, [['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']])
+  // if (process.env.BUILD === 'production')
+  envMap = envMapState
+  // else envMap = cubeMapTex
 
   const [worldMapState, setWorldMapState] = useState(null)
   const [worldMapTex] = useLoader(THREE.CubeTextureLoader, [['sh_rt copy.png', 'sh_lf copy.png', 'sh_up copy.png', 'sh_dn copy.png', 'sh_bk copy.png', 'sh_ft copy.png']])
@@ -51,7 +52,9 @@ export default function Home() {
       canvasRef.current.setAttribute('height', outerHeight)
     }
 
-    if (process.env.BUILD === 'production') { setEnvMap(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'])) }
+    // if (process.env.BUILD === 'production') { 
+    setEnvMap(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']))
+    // }
 
     // cubeMapRef.current = new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'])
 
