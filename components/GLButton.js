@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { useMotionValue, animate } from 'framer-motion'
 import { vec3, useMixer, useClip, useAction } from '@/lib/utils'
-import { Text3D } from '@react-three/drei'
+import { Text3D, Html } from '@react-three/drei'
 
 export const GLButton = forwardRef(function GLButton({ cubeMap, emissive, onClick = () => null, onPointerEnter, onPointerLeave, children }, ref) {
 
@@ -30,7 +30,7 @@ export const GLButton = forwardRef(function GLButton({ cubeMap, emissive, onClic
   const unHoverAction = useRef(null)
 
   const initButtonNode = node => {
-    if(!node) return
+    if (!node) return
     node.geometry.computeBoundingBox()
     node.geometry.center()
     setButtonNode(node)
@@ -85,22 +85,28 @@ export const GLButton = forwardRef(function GLButton({ cubeMap, emissive, onClic
     unHoverMixer.current.update(delta)
   })
 
-  if(!cubeMap) return (
-    <div className='bg-black h-screen w-full flex align-middle justify-center'>
-      <div className='w-4/12 m-auto'>
-        <h1 className='text-white text-4xl'>LOADING...</h1>
-      </div>
-    </div>
-  )
+  // if (!cubeMap) return (
+  //   <mesh position={vec3(0,0,0)} scale={vec3(5,5,5)}>
+  //     <planeGeometry args={[1, 1]} />
+  //     <meshBasicMaterial color={0x000000} />
+  //     <Html>
+  //       <div className='bg-black h-screen w-screen flex align-middle justify-center'>
+  //         <div className='w-4/12 m-auto'>
+  //           <h1 className='text-black text-4xl'>LOADING...</h1>
+  //         </div>
+  //       </div>
+  //     </Html>
+  //   </mesh>
+  // )
   return (
     <>
-      {cubeMap && <motion.mesh position={vec3(0, -1.2, 0)} initial={{z:0}} scale={vec3(0.5, 0.5, 0.5)} whileHover={{z:1}} transition={{duration: 0.5}}  >
-        <motion.pointLight initial={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1,1,1)} />
-        <motion.pointLight initial={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0, opacity: 1 }} transition={{ duration: 2, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1,1,1)} />
-        <Text3D position={vec3(0, 0, 0)} scale={vec3(1, 1, 1)} font='/Itai Protests_Regular.json' bevelEnabled bevelSegments={10} bevelSize={.001} bevelThickness={0.004} style={{ transformOrigin: 'center' }}  ref={initButtonNode} >
+      {cubeMap && <motion.mesh position={vec3(0, -1.2, 0)} initial={{ z: 0 }} scale={vec3(0.75, 0.75, 0.5)} whileHover={{ z: 1 }} transition={{ duration: 0.5 }} onClick={onClick} >
+        <motion.pointLight initial={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1, 1, 1)} />
+        <motion.pointLight initial={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0, opacity: 1 }} transition={{ duration: 2, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1, 1, 1)} />
+        <Text3D position={vec3(0, 0, 0)} scale={vec3(1, 1, 1)} font='/Itai Protests_Regular.json' bevelEnabled bevelSegments={10} bevelSize={.001} bevelThickness={0.004} style={{ transformOrigin: 'center' }} ref={initButtonNode} >
           {children}
-          < motion.meshPhongMaterial initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, delay: 5 }} envMap={cubeMap} emissive={0x6666ff} attach='material-0' color={0x6666ff} shininess={100} refractionRatio={1} transparent />
-          <motion.meshPhongMaterial initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, delay: 5 }} envMap={cubeMap} emissive={0x6666ff} attach='material-1' color={0x6666ee} shininess={100} refractionRatio={1} transparent />
+          < motion.meshPhongMaterial initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, delay: 5 }} envMap={cubeMap} emissive={0x444444} attach='material-0' color={0x772200} shininess={100} specular={0xee0000} refractionRatio={1} transparent />
+          <motion.meshPhongMaterial initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, delay: 5 }} envMap={cubeMap} emissive={0x444444} attach='material-1' color={0x772200} shininess={100} specular={0xee0000} refractionRatio={1} transparent />
         </Text3D>
       </motion.mesh>}
     </>

@@ -7,6 +7,7 @@ import { motion, MotionLayoutCamera, MotionCanvas } from 'framer-motion-3d'
 import { GLButton } from '@/components/GLButton'
 import { ParticleSystem } from '@/components/ParticleSystem'
 import { World } from '@/components/World'
+import { PixelBox } from '@/lib/shaders'
 import { VideoBackdrop } from '@/components/VideoBackdrop'
 
 import { vec3 } from '@/lib/utils'
@@ -21,6 +22,7 @@ export default function Home() {
   // const mainMenuRef = useRef(null)
   const cubeMapRef = useRef(null)
   const uiRef = useRef(null)
+  const pixelBoxRef = useRef(null)
 
   let envMap, setEnvMap, worldMap, setWorldMap
 
@@ -47,13 +49,15 @@ export default function Home() {
   useEffect(() => {
 
     if (!canvasRef.current) return
+
+    console.log('pixelBoxRef.current: ', pixelBoxRef.current)
     if (typeof window !== 'undefined') {
       const { outerWidth, outerHeight } = window
       canvasRef.current.setAttribute('width', outerWidth)
       canvasRef.current.setAttribute('height', outerHeight)
     }
 
-    setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']))
+    setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['dark_rt copy.png', 'dark_lf copy.png', 'dark_up copy.png', 'dark_dn copy.png', 'dark_bk copy.png', 'dark_ft copy.png']))
 
     setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['dark_rt.png', 'dark_lf.png', 'dark_up.png', 'dark_dn.png', 'dark_bk.png', 'dark_ft.png']))
 
@@ -71,6 +75,7 @@ export default function Home() {
   }
 
   const centreNode = node => {
+    if(!node)  return
     node.geometry.computeBoundingBox()
     node.geometry.center()
   }
@@ -80,19 +85,20 @@ export default function Home() {
       {/* <Suspense> */}
       <Canvas ref={canvasRef} camera={{manual:false}}>
         <hemisphereLight intensity={1} />
-        <World worldMap={worldMap} />
+        {/* <World worldMap={worldMap} /> */}
+        <PixelBox ref={pixelBoxRef}  cubeMap2={worldMap} color={vec3(0,0,0)} scale={vec3(100,100,100)} />
         {/* <VideoBackdrop url='/riverclouds.mp4' /> */}
         {/* <ambientLight /> */}
         {/* {envMap && <motion.mesh position={vec3(0,0,0)} initial={{scaleX:1, scaleY:1}} animate={{scaleX:10, scaleY:10}} transition={{duration:20}}>
           <planeGeometry args={[1,1, 20, 20]} />
           <meshPhongMaterial shininess={0} emissive={0xcccccc} color={0x000000} transparent opacity={.65} wireframe />
         </motion.mesh>} */}
-        <motion.group initial={{rotateY:-6}} animate={{rotateY:6}} transition={{duration:24, repeatType:'mirror', repeat:Infinity}}>
+        <motion.group initial={{rotateY:-6}} animate={{rotateY:3}} transition={{duration:24, repeatType:'mirror', repeat:Infinity}} >
           <PerspectiveCamera makeDefault manual position={vec3(0,0,10)} />
-          {envMap && <motion.mesh initial={{ x: -4, y: 5, z: 11, rotateY: 0, rotateX: -32 }} animate={{ x: -4, y: 2, z: 0, rotateY: 0, rotateX: 0 }} transition={{ duration: 5 }} style={{ transformOrigin: 'center' }} >
+          {envMap && <motion.mesh initial={{ x: -4, y: 5, z: 11, rotateY: 0, rotateY: -32 }} animate={{ x: -4, y: 2, z: 0, rotateY: 0, rotateX: 0 }} transition={{ duration: 5 }} style={{ transformOrigin: 'center' }} ref={centreNode} >
             <motion.pointLight initial={{ x: -5.5, y: -2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: 13, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />
             <motion.pointLight initial={{ x: 0, y: 2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: -5.5, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />
-            <Text3D position={vec3(3.75, 0.8, 0)} scale={vec3(0.5, 0.5, 1)} font='/Itai Protests_Regular.json' bevelEnabled bevelSegments={10} bevelSize={.0005} bevelThickness={0.002} style={{ transformOrigin: 'center' }} ref={initTextNode} >
+            <Text3D position={vec3(3.9, 0.8, 0)} scale={vec3(0.78, 0.75, 1)} font='/Itai Protests_Regular.json' bevelEnabled bevelSegments={10} bevelSize={.0005} bevelThickness={0.002} style={{ transformOrigin: 'center' }} ref={initTextNode} >
               WELCOME&nbsp;TO
               <meshPhongMaterial envMap={envMap} emissive={0xffffff} attach='material-0' color={0xffffff} shininess={100} refractionRatio={1} />
               <meshPhongMaterial envMap={envMap} emissive={0xffffff} attach='material-1' color={0xffffff} shininess={100} refractionRatio={1} />
@@ -103,11 +109,10 @@ export default function Home() {
               DaleTristanHutchinson.com
               <motion.meshPhongMaterial envMap={envMap} emissive={0xeeee00} attach='material-0' color={0xeeee00} shininess={100} refractionRatio={1} transparent opacity={1} />
               <motion.meshPhongMaterial envMap={envMap} emissive={0xeeee00} attach='material-1' color={0xeeee00} shininess={100} refractionRatio={1} transparent opacity={1}/>
-
               {/* <motion.pointsMaterial attach='material-1' color={0xee0000} size={0.0015} sizeAttenuation /> */}
             </Text3D>
           </motion.group>}
-          <GLButton {...{ cubeMap: envMap }}>ENTER</GLButton>
+          <GLButton {...{ cubeMap: envMap }} onClick={() => pixelBoxRef.current.playAnimation()} >ENTER</GLButton>
         </motion.group>
         {/* <motion.points position={vec3(0,1,-5)} scale={vec3(6,6,6)} initial={{rotateY:6, scaleY:3}} animate={{rotateY:0, scaleY:-3}} transition={{duration:13, repeatType:'mirror', repeat:Infinity}} ref={centreNode} >
           <sphereGeometry args={[1,96,96]} />
@@ -128,5 +133,5 @@ export default function Home() {
   )
 }
 
-
+// 
 
