@@ -3,7 +3,8 @@ module.exports = {
     'browser': true,
     'es2021': true
   },
-  'extends': 'next/core-web-vitals',
+//   'parser': 'babel-eslint',
+  'extends': ['next/core-web-vitals', 'plugin:@tanstack/eslint-plugin-query/recommended'],
   'overrides': [
     {
       'env': {
@@ -13,7 +14,7 @@ module.exports = {
         '.eslintrc.{js,cjs}'
       ],
       'parserOptions': {
-        'sourceType': 'script'
+        'sourceType': 'module'
       }
     }
   ],
@@ -22,7 +23,10 @@ module.exports = {
     'sourceType': 'module'
   },
   'plugins': [
-    'react'
+    'react',
+    'eslint-plugin-next',
+    'eslint-plugin-react-hooks',
+    'eslint-plugin-query'
   ],
   'rules': {
     'indent': [
@@ -33,13 +37,5 @@ module.exports = {
       'error',
       'unix'
     ],
-    'quotes': [
-      'error',
-      'single'
-    ],
-    'semi': [
-      'error',
-      'never'
-    ]
   }
 }

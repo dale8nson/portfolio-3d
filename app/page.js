@@ -106,7 +106,7 @@ export default function Home() {
             <planeGeometry args={[1, 1]} />
             <meshBasicMaterial color={0xffffff} />
           </mesh>
-          <PerspectiveCamera makeDefault manual position={vec3(0, 0, 10)} />
+          <PerspectiveCamera makeDefault position={vec3(0, 0, 10)} />
           {envMap && <motion.group style={{ transformOrigin: '50% 50%' }} >
             <motion.pointLight initial={{ x: -5.5, y: -2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: 13, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />
             <motion.pointLight initial={{ x: 0, y: 2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: -5.5, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />

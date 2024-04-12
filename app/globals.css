@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+@font-face {
+  font-family: technology;
+  src: url('/Technology.ttf');
+}
+
+@font-face {
+  font-family: scoreboard;
+  src: url('/scoreboard.ttf');
+}
+
+@font-face {
+  font-family: led;
+  src: url('/The\ Led\ Display\ St.ttf');
+}
