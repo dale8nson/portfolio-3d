@@ -25,7 +25,7 @@ export const CubeUI = () => {
 
   return (
     <motion.group  position={vec3(0, 0.75, 0.51)}  scale={0.45} initial={{ y: 0.77 }} animate={{ y: 0.73 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }}>
-      <BaseShaderComponent 
+      {/* <BaseShaderComponent 
         fragmentShader={fragmentShader}
         vertexShader={vertexShader}
         uniforms={uniforms}
@@ -33,7 +33,7 @@ export const CubeUI = () => {
         position={vec3(0, 0, 0)}
         geometry={<sphereGeometry args={[20, 20, 20]} />}
         ref={ref}
-       />
+       /> */}
       {/* <motion.mesh position={vec3(0, 0.75, 2.5)} scale={0.55} initial={{ y: 0.77 }} animate={{ y: 0.73 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} > */}
         {/* <boxGeometry args={[1, 1, 1]} /> */}
         {/* <shaderMaterial args={[DigitalGlitch]} /> */}
