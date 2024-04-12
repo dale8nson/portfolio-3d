@@ -1,16 +1,30 @@
 import { useEffect, useRef, useMemo } from 'react'
 import * as THREE from 'three'
-import { useThree } from 'three'
-import { Canvas, useLoader, extend, useFrame } from '@react-three/fiber'
+import { Canvas, useLoader, extend, useFrame, useThree } from '@react-three/fiber'
 import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
 import { CubeUI } from './CubeUI'
+import { BoxCollider } from './BoxCollider'
 
 extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls])
 
 export const ShowRoom = () => {
+
+  const { scene, camera } = useThree()
+  console.log('camera: ', camera)
+  const colliderRef = useRef(null)
+
+  const wp = useMemo(() => new THREE.Vector3(), [])
+  const wd = useMemo(() => new THREE.Vector3(), [])
+
+  camera.getWorldPosition(wp)
+  camera.getWorldDirection(wd)
+
+  const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 0.2), [])
+
+  console.log(`rc: `, rc)
 
   const canvasRef = useRef(null)
   const cameraRef = useRef(null)
@@ -34,35 +48,64 @@ export const ShowRoom = () => {
 
   console.log('cubeMap: ', cubeMap)
 
-  const speed = 1.5
+  const speed = 2
 
   useFrame((_, delta) => {
-    if (!cameraRef.current) return
+    if (!camera || !rc) return
 
     const ds = speed * delta
-    const wd = new THREE.Vector3()
-    cameraRef.current.getWorldDirection(wd)
 
-    if (forwardPressed) {
+    camera.getWorldDirection(wd)
 
-      cameraRef.current.position.x += wd.x * ds
-      cameraRef.current.position.z += wd.z * ds
+    camera.getWorldPosition(wp)
+    const rayOrigin = wp.clone()
+    rayOrigin.y = 0.3
+
+    const rayDirection = wd.clone()
+
+    rc.set(rayOrigin, rayDirection)
+
+    let objects = rc.intersectObject(colliderRef.current)
+
+    if (objects.length) console.log('objects: ', objects)
+
+    if (forwardPressed && !objects.length) {
+
+      camera.position.x += wd.x * ds
+      camera.position.z += wd.z * ds
 
     }
-    if (backPressed) {
+    const backDirection = rayDirection.clone()
+    backDirection.multiplyScalar(-1)
+    rc.set(rayOrigin, backDirection )
+    objects = rc.intersectObject(colliderRef.current)
 
-      cameraRef.current.position.x -= wd.x * ds
-      cameraRef.current.position.z -= wd.z * ds
+    if (backPressed && !objects.length) {
+
+      camera.position.x += wd.x * ds
+      camera.position.z += wd.z * ds
 
     }
-    if (leftPressed) {
 
-      cameraRef.current.translateX(-ds)
+    const leftDirection = new THREE.Vector3().crossVectors(rayDirection, vec3(0,1,0))
+    rayOrigin.x -= 0.2
+    rc.set(rayOrigin, leftDirection)
+    objects = rc.intersectObject(colliderRef.current)
+
+    if (leftPressed && !objects.length) {
+
+      camera.translateX(-ds)
     }
 
-    if (rightPressed) {
+    const rightDirection = new THREE.Vector3().crossVectors(backDirection, vec3(0,1,0))
+    rayOrigin.x += 0.4
+    rc.set(rayOrigin, rightDirection)
+    objects = rc.intersectObject(colliderRef.current)
 
-      cameraRef.current.translateX(ds)
+
+    if (rightPressed && !objects.length) {
+
+      camera.translateX(ds)
     }
   })
 
@@ -76,12 +119,9 @@ export const ShowRoom = () => {
         <sphereGeometry args={[20, 20, 20]} />
         <meshBasicMaterial envMap={cubeMap} side={THREE.DoubleSide} />
       </mesh>} */}
-      <mesh scale={1.5}>
-        <boxGeometry args={[1,1,1]} />
-        <meshBasicMaterial wireframe />
-      </mesh>
+      <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} /> 
       <CubeUI />
-      <motion.primitive initial={{rotateY:0}} animate={{rotateY:2 * Math.PI}} transition={{duration: 50, repeat: Infinity, ease:'linear'}} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
+      <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <motion.primitive object={GLTF.scene} scale={0.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <PointerLockControls />
     </>
