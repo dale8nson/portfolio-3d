@@ -27,6 +27,6 @@ export const Fog = forwardRef(function Fog(props,ref) {
   // }, [])
 
   return (
-    <BaseShaderComponent geometry={geometry} uniforms={uniforms} position={vec3(0, 0, -1)} scale={vec3(10, 10, 10)} motionProps={{ initial: { x: 0 }, animate: { x: 0 }, transition: { duration: 10, repeatType: 'mirror', repeat: Infinity } }} ref={ref} />
+    <BaseShaderComponent geometry={geometry} uniforms={uniforms} position={vec3(0, 0, 1)} scale={vec3(10, 10, 10)} motionProps={{ initial: { x: 0 }, animate: { x: 0 }, transition: { duration: 10, repeatType: 'mirror', repeat: Infinity } }} ref={ref} />
   )
 })

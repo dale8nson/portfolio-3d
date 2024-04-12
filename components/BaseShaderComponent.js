@@ -32,10 +32,17 @@ export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geo
 
     for (const key of Object.keys(uniforms)) {
       console.log(`key: `, key)
-      Object.defineProperty(node, key, {
-        get() { return this.material.uniforms[key].value },
-        set(value) { this.material.uniforms[key].value = value }
-      })
+      if (!Object.hasOwn(uniforms[key], 'value')) {
+        Object.defineProperty(node, key, {
+          get() { return this.material.uniforms[key].value },
+          set(value) { this.material.uniforms[key].value = value }
+        })
+      } else {
+        
+        Object.defineProperty(node, key, {
+
+        })
+      }
     }
 
     mixer.current = new THREE.AnimationMixer(node)
@@ -64,7 +71,7 @@ export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geo
   return (
     <mesh ref={ref} {...{ position, scale, rotation, motionProps }}>
       {geometry}
-      <shaderMaterial attach="material" args={[shaderObj]} transparent  />
+      <shaderMaterial attach="material" args={[shaderObj]} transparent wireframe />
     </mesh>
   )
 })
