@@ -1,6 +1,6 @@
 import { forwardRef, useRef, useEffect} from 'react'
 import * as THREE from 'three'
-import { useFrame } from '@react-three/fiber'
+import { useFrame, useThree } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { vec3 } from '@/lib/utils'
 
