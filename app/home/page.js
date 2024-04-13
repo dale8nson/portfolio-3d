@@ -6,6 +6,7 @@ import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, Pointer
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
+import { Button } from "@/components/ui/button"
 
 import { ShowRoom } from '/components/ShowRoom'
 
@@ -35,10 +36,24 @@ export default function Page() {
   })
 
   return (
+    <ShowRoom>
     <main>
-      <Canvas ref={canvasRef} className='h-screen'>
-        <ShowRoom />
-      </Canvas>
+      <div className='mx-auto align-items-middle p-1 w-1/2 text-xs rounded-sm border border-solid border-[#338833] h-[15vh] font-[led] flex-col align-middle text-[#338833] bg-[#336633] backdrop-blur-sm bg-opacity-50'>
+          <h1 className='text-center'>WELCOME</h1>
+          <Button className='bg-transparent h-2 font-[hybrid] text-[#338833]' >
+            About
+          </Button>
+          <Button className='bg-transparent h-2 font-[terminator] text-[#338833]' >
+            Resume
+          </Button>
+          <Button className='bg-transparent h-2 font-[venus] text-[#338833]' >
+            Projects
+          </Button>
+          <Button className='bg-transparent h-2 font-[nasalization] text-[#338833]' >
+            Contact
+          </Button>
+        </div>
     </main>
+    </ShowRoom>
   )
 }

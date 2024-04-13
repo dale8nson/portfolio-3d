@@ -17,3 +17,23 @@
   font-family: led;
   src: url('/The\ Led\ Display\ St.ttf');
 }
+
+@font-face {
+  font-family: nasalization;
+  src: url('/nasalization-rg.otf');
+}
+
+@font-face {
+  font-family: hybrid;
+  src: url('/hybrid_o.ttf');
+}
+
+@font-face {
+  font-family: terminator ;
+  src: url('/terminator\ real\ nfi.ttf');
+}
+
+@font-face {
+  font-family: venus;
+  src: url('/venus\ rising\ rg.otf');
+}

@@ -100,7 +100,7 @@ export const GLButton = forwardRef(function GLButton({ cubeMap, emissive, onClic
   // )
   return (
     <>
-      {cubeMap && <motion.mesh position={vec3(0, -1.2, 0)} initial={{ z: 0 }} scale={vec3(0.75, 0.75, 0.5)} whileHover={{ z: 1 }} transition={{ duration: 0.5 }} onClick={onClick} >
+      {cubeMap && <motion.mesh position={vec3(0, -1.2, 0)} initial={{ z: 0 }} scale={vec3(0.75, 0.75, 0.5)} whileHover={{ z: 1 }} transition={{ duration: 0.5 }} onClick={onClick} ref={ref} >
         <motion.pointLight initial={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1, 1, 1)} />
         <motion.pointLight initial={{ x: 1.5, y: 0, z: 3, rotateY: 0, rotateX: 0 }} animate={{ x: -1.5, y: 0, z: 3, rotateY: 0, rotateX: 0, opacity: 1 }} transition={{ duration: 2, repeatType: 'mirror', repeat: Infinity }} intensity={30} scale={vec3(1, 1, 1)} />
         <Text3D position={vec3(0, 0, 0)} scale={vec3(1, 1, 1)} font='/Itai Protests_Regular.json' bevelEnabled bevelSegments={10} bevelSize={.01} bevelThickness={0.004} style={{ transformOrigin: 'center' }} ref={initButtonNode} >

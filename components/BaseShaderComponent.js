@@ -7,7 +7,7 @@ import { vec3 } from '../lib/utils'
 import { ShaderObj } from '../lib/shaders'
 
 
-export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geometry, uniforms, fragmentShader, vertexShader, motionProps = {}, animations = [], position = vec3(0, 0, 0), scale = vec3(1, 1, 1), rotation = vec3(0, 0, 0) }, ref) {
+export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geometry, uniforms, fragmentShader, vertexShader, motionProps = {}, animations = [], position = vec3(0, 0, 0), scale = vec3(1, 1, 1), rotation = new THREE.Euler(0, 0, 0), debug = false }, ref) {
 
   const mixer = useRef()
   const tracks = useRef({})
@@ -15,6 +15,8 @@ export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geo
   const actions = useRef([])
 
   const shaderObj = new ShaderObj({ uniforms, fragmentShader, vertexShader })
+
+  console.log('shaderObj: ', shaderObj)
 
   useEffect(() => {
     console.log(`BaseShaderComponent useEffect()`)
@@ -32,17 +34,12 @@ export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geo
 
     for (const key of Object.keys(uniforms)) {
       console.log(`key: `, key)
-      if (!Object.hasOwn(uniforms[key], 'value')) {
-        Object.defineProperty(node, key, {
-          get() { return this.material.uniforms[key].value },
-          set(value) { this.material.uniforms[key].value = value }
-        })
-      } else {
-        
-        Object.defineProperty(node, key, {
 
-        })
-      }
+      Object.defineProperty(node, key, {
+        get() { return this.material.uniforms[key].value },
+        set(value) { this.material.uniforms[key].value = value }
+      })
+
     }
 
     mixer.current = new THREE.AnimationMixer(node)
@@ -69,9 +66,9 @@ export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geo
   })
 
   return (
-    <mesh ref={ref} {...{ position, scale, rotation, motionProps }}>
+    <motion.mesh ref={ref} {...{ position, scale, rotation, motionProps }}>
       {geometry}
-      <shaderMaterial attach="material" args={[shaderObj]} transparent wireframe />
-    </mesh>
+      <shaderMaterial attach="material" args={[shaderObj]} transparent wireframe={debug ? true :false} color={0xee0000} />
+    </motion.mesh>
   )
 })
