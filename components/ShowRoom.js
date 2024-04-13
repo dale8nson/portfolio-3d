@@ -1,20 +1,27 @@
 import { useEffect, useRef, useMemo } from 'react'
 import * as THREE from 'three'
-import { Canvas, useLoader, extend, useFrame, useThree } from '@react-three/fiber'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture } from '@react-three/drei'
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
+import { Canvas, useLoader, extend, useFrame, useThree, useGraph,  } from '@react-three/fiber'
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useFBX, useTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
-import { CubeUI } from './CubeUI'
+import { HoverUI } from './HoverUI'
 import { BoxCollider } from './BoxCollider'
+import { Button } from "@/components/ui/button"
+import Link from 'next/link'
 
 extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls])
 
-export const ShowRoom = () => {
+export const ShowRoom = ({children}) => {
 
   const { scene, camera } = useThree()
   console.log('camera: ', camera)
   const colliderRef = useRef(null)
+
+  const head = useGLTF('head_planes_reference/scene.gltf')
+  head.scene.overrideMaterial = true
+  console.log(`head.scene: `, head.scene)
 
   const wp = useMemo(() => new THREE.Vector3(), [])
   const wd = useMemo(() => new THREE.Vector3(), [])
@@ -26,6 +33,17 @@ export const ShowRoom = () => {
 
   console.log(`rc: `, rc)
 
+  const map = useTexture('/sh_bk.png')
+  map.wrapS = map.wrapT = THREE.RepeatWrapping
+
+  const headOBJ = useLoader(OBJLoader, '/uploads_files_3268159_model+S1.obj')
+  const { nodes:headNodes, materials:headMaterials } = useGraph(headOBJ)
+  console.log('headNodes: ', headNodes)
+  // for (const child of head.children) {
+    // child.material.wireframe = true
+    // child.material.color = 0xee0000
+    // child.material.side = THREE.DoubleSide
+  // }
   const canvasRef = useRef(null)
   const cameraRef = useRef(null)
   const objectPositionRef = useRef(vec3(0, 0, 0))
@@ -66,6 +84,8 @@ export const ShowRoom = () => {
     rc.set(rayOrigin, rayDirection)
 
     let objects = rc.intersectObject(colliderRef.current)
+    // objects = rc.intersectObjects(scene.children)
+
 
     if (objects.length) console.log('objects: ', objects)
 
@@ -77,8 +97,10 @@ export const ShowRoom = () => {
     }
     const backDirection = rayDirection.clone()
     backDirection.multiplyScalar(-1)
-    rc.set(rayOrigin, backDirection )
+    rc.set(rayOrigin, backDirection)
     objects = rc.intersectObject(colliderRef.current)
+    // objects = rc.intersectObjects(scene.children)
+
 
     if (backPressed && !objects.length) {
 
@@ -87,20 +109,24 @@ export const ShowRoom = () => {
 
     }
 
-    const leftDirection = new THREE.Vector3().crossVectors(rayDirection, vec3(0,1,0))
+    const leftDirection = new THREE.Vector3().crossVectors(rayDirection, vec3(0, 1, 0))
     rayOrigin.x -= 0.2
     rc.set(rayOrigin, leftDirection)
-    objects = rc.intersectObject(colliderRef.current)
+    // objects = rc.intersectObject(colliderRef.current)
+    objects = rc.intersectObjects(scene.children)
+
 
     if (leftPressed && !objects.length) {
 
       camera.translateX(-ds)
     }
 
-    const rightDirection = new THREE.Vector3().crossVectors(backDirection, vec3(0,1,0))
+    const rightDirection = new THREE.Vector3().crossVectors(backDirection, vec3(0, 1, 0))
     rayOrigin.x += 0.4
     rc.set(rayOrigin, rightDirection)
     objects = rc.intersectObject(colliderRef.current)
+    // objects = rc.intersectObjects(scene.children)
+
 
 
     if (rightPressed && !objects.length) {
@@ -109,18 +135,15 @@ export const ShowRoom = () => {
     }
   })
 
-
   return (
     <>
       <PerspectiveCamera makeDefault position={[0, 0.75, 5]} ref={cameraRef} />
       <hemisphereLight />
-
-      {/* {cubeMap && <mesh scale={vec3(20, 20, 20)} position={vec3(0, 0, 0)}>
-        <sphereGeometry args={[20, 20, 20]} />
-        <meshBasicMaterial envMap={cubeMap} side={THREE.DoubleSide} />
-      </mesh>} */}
-      <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} /> 
-      <CubeUI />
+      {/* <primitive object={head.scene} material={<meshPhongMaterial color={0xee0000} emissive={0xee0000} />} position={vec3(0,1,2)}  scale={3} /> */}
+      <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
+      <HoverUI position={vec3(0, 2, 3.5)} scale={.25} initial={{ y: 0.8 }} animate={{ y: 0.7 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} >
+        {children}
+      </HoverUI>
       <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <motion.primitive object={GLTF.scene} scale={0.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <PointerLockControls />

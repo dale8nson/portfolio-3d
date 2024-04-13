@@ -65,11 +65,14 @@ export default function Home() {
       canvasRef.current.setAttribute('height', outerHeight)
     }
 
-    setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['dark_rt copy.png', 'dark_lf copy.png', 'dark_up copy.png', 'dark_dn copy.png', 'dark_bk copy.png', 'dark_ft copy.png']))
+    // setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['dark_rt copy.png', 'dark_lf copy.png', 'dark_up copy.png', 'dark_dn copy.png', 'dark_bk copy.png', 'dark_ft copy.png']))
 
     // setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['dark_rt.png', 'dark_lf.png', 'dark_up.png', 'dark_dn.png', 'dark_bk.png', 'dark_ft.png']))
-
+    
+    // Texturelabs_Metal_121M.jpg
     setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png']))
+
+    setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['Texturelabs_Metal_121M.png', 'Texturelabs_Metal_121M.png', 'Texturelabs_Metal_121M.png', 'Texturelabs_Metal_121M.png', 'Texturelabs_Metal_121M.png', 'Texturelabs_Metal_121M.png']))
 
     // setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['sun.png', 'sun.png', 'sun.png', 'sun.png', 'sun.png', 'sun.png']))
 
@@ -100,7 +103,7 @@ export default function Home() {
         {/* <World worldMap={worldMap} /> */}
         {/* <PixelBox ref={pixelBoxRef} cubeMap1={worldMap} color={vec3(0, 0, 0)} scale={vec3(200, 200, 200)} /> */}
         <motion.group initial={{ rotateY: -3 }} animate={{ rotateY: 3 }} transition={{ duration: 24, repeatType: 'mirror', repeat: Infinity }} >
-          <Fog ref={node => fogRef.current = node} />
+          {/* <Fog ref={node => fogRef.current = node} /> */}
           <DoubleDoors color={0x000000} ref={doubleDoorRef} />
           <mesh position={vec3(0, 0, -6)} scale={vec3(6, 12.5, 1)} >
             <planeGeometry args={[1, 1]} />
