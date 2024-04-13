@@ -6,6 +6,8 @@ import { vec3 } from '@/lib/utils'
 
 export const DoubleDoors = forwardRef(function DoubleDoors({color}, ref) {
 
+  const { camera } = useThree() 
+
   const leftDoor = useRef(null)
   const rightDoor = useRef(null)
   const leftDoorMixer =  useRef()
