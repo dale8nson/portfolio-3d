@@ -1,8 +1,11 @@
 'use client'
-import { useMemo, useRef, useEffect } from 'react'
+import { useMemo, useRef, useEffect, Suspense } from 'react'
 import { Canvas, useLoader, extend, useFrame } from '@react-three/fiber'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls } from '@react-three/drei'
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, Html } from '@react-three/drei'
 import { ShowRoom } from '/components/ShowRoom'
+
+extend([ShowRoom])
+
 export default function Layout({ children }) {
 
   const canvasRef = useRef(null)
@@ -28,11 +31,11 @@ export default function Layout({ children }) {
 
   return (
     <KeyboardControls map={map}>
-      <Canvas ref={canvasRef} className='h-screen'>
-        {/* <ShowRoom> */}
-        {children}
-        {/* </ShowRoom> */}
-      </Canvas>
+      <Suspense>
+        <Canvas ref={canvasRef} className='h-screen'>
+          {children}
+        </Canvas>
+      </Suspense>
     </KeyboardControls>
   )
 }

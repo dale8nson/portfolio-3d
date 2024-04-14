@@ -37,3 +37,9 @@
   font-family: venus;
   src: url('/venus\ rising\ rg.otf');
 }
+
+
+@font-face {
+  font-family: retro;
+  src: url('/Retro Gaming.ttf');
+}

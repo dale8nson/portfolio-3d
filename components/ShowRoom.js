@@ -1,7 +1,7 @@
 import { useEffect, useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
-import { Canvas, useLoader, extend, useFrame, useThree, useGraph,  } from '@react-three/fiber'
+import { Canvas, useLoader, extend, useFrame, useThree, useGraph, } from '@react-three/fiber'
 import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useFBX, useTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { vec3 } from '/lib/utils'
@@ -13,13 +13,14 @@ import Link from 'next/link'
 
 extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls])
 
-export const ShowRoom = ({children}) => {
+export const ShowRoom = ({ children }) => {
 
   const { scene, camera } = useThree()
   console.log('camera: ', camera)
   const colliderRef = useRef(null)
+  const controlsRef = useRef(null)
 
-  const head = useGLTF('head_planes_reference/scene.gltf')
+  const head = useGLTF('/head_planes_reference/scene.gltf')
   head.scene.overrideMaterial = true
   console.log(`head.scene: `, head.scene)
 
@@ -29,7 +30,7 @@ export const ShowRoom = ({children}) => {
   camera.getWorldPosition(wp)
   camera.getWorldDirection(wd)
 
-  const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 0.2), [])
+  const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 0.9), [])
 
   console.log(`rc: `, rc)
 
@@ -37,12 +38,12 @@ export const ShowRoom = ({children}) => {
   map.wrapS = map.wrapT = THREE.RepeatWrapping
 
   const headOBJ = useLoader(OBJLoader, '/uploads_files_3268159_model+S1.obj')
-  const { nodes:headNodes, materials:headMaterials } = useGraph(headOBJ)
+  const { nodes: headNodes, materials: headMaterials } = useGraph(headOBJ)
   console.log('headNodes: ', headNodes)
   // for (const child of head.children) {
-    // child.material.wireframe = true
-    // child.material.color = 0xee0000
-    // child.material.side = THREE.DoubleSide
+  // child.material.wireframe = true
+  // child.material.color = 0xee0000
+  // child.material.side = THREE.DoubleSide
   // }
   const canvasRef = useRef(null)
   const cameraRef = useRef(null)
@@ -68,6 +69,11 @@ export const ShowRoom = ({children}) => {
 
   const speed = 2
 
+  useEffect(() => {
+    if (!controlsRef.current) return
+    console.log('controlsRef.current: ', controlsRef.current)
+  })
+
   useFrame((_, delta) => {
     if (!camera || !rc) return
 
@@ -77,19 +83,23 @@ export const ShowRoom = ({children}) => {
 
     camera.getWorldPosition(wp)
     const rayOrigin = wp.clone()
-    rayOrigin.y = 0.3
+    rayOrigin.y = 0.4
 
     const rayDirection = wd.clone()
 
     rc.set(rayOrigin, rayDirection)
 
-    let objects = rc.intersectObject(colliderRef.current)
-    // objects = rc.intersectObjects(scene.children)
+    // let objects = rc.intersectObject(colliderRef.current)
+    let objects = rc.intersectObjects(scene.children)
 
 
     if (objects.length) console.log('objects: ', objects)
+    const menu = objects.find(child => child.object.name === 'menu')
+    if (menu) {
+      controlsRef.current.unlock()
+    }
 
-    if (forwardPressed && !objects.length) {
+    if (forwardPressed && !objects.some(child => child.distance < 0.1)) {
 
       camera.position.x += wd.x * ds
       camera.position.z += wd.z * ds
@@ -98,11 +108,11 @@ export const ShowRoom = ({children}) => {
     const backDirection = rayDirection.clone()
     backDirection.multiplyScalar(-1)
     rc.set(rayOrigin, backDirection)
-    objects = rc.intersectObject(colliderRef.current)
-    // objects = rc.intersectObjects(scene.children)
+    // objects = rc.intersectObject(colliderRef.current)
+    objects = rc.intersectObjects(scene.children)
 
 
-    if (backPressed && !objects.length) {
+    if (backPressed && !objects.some(child => child.distance < 0.1)) {
 
       camera.position.x += wd.x * ds
       camera.position.z += wd.z * ds
@@ -116,7 +126,7 @@ export const ShowRoom = ({children}) => {
     objects = rc.intersectObjects(scene.children)
 
 
-    if (leftPressed && !objects.length) {
+    if (leftPressed && !objects.some(child => child.distance < 0.1)) {
 
       camera.translateX(-ds)
     }
@@ -124,10 +134,8 @@ export const ShowRoom = ({children}) => {
     const rightDirection = new THREE.Vector3().crossVectors(backDirection, vec3(0, 1, 0))
     rayOrigin.x += 0.4
     rc.set(rayOrigin, rightDirection)
-    objects = rc.intersectObject(colliderRef.current)
-    // objects = rc.intersectObjects(scene.children)
-
-
+    // objects = rc.intersectObject(colliderRef.current)
+    objects = rc.intersectObjects(scene.children)
 
     if (rightPressed && !objects.length) {
 
@@ -141,12 +149,12 @@ export const ShowRoom = ({children}) => {
       <hemisphereLight />
       {/* <primitive object={head.scene} material={<meshPhongMaterial color={0xee0000} emissive={0xee0000} />} position={vec3(0,1,2)}  scale={3} /> */}
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
-      <HoverUI position={vec3(0, 2, 3.5)} scale={.25} initial={{ y: 0.8 }} animate={{ y: 0.7 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} >
+      <HoverUI name='menu' position={vec3(0, 2, 4)} scale={.25} initial={{ y: 0.8 }} animate={{ y: 0.775 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} >
         {children}
       </HoverUI>
       <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <motion.primitive object={GLTF.scene} scale={0.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
-      <PointerLockControls />
+      <PointerLockControls ref={controlsRef} />
     </>
   )
 }

@@ -46,14 +46,14 @@ export const HoverUI = forwardRef(function HoverUI({ children, ...props }, ref) 
 
   return (
     <motion.group {...{ ...props }} ref={ref ?? null} >
-      <motion.mesh position={vec3(0, 0, 0)} scale={vec3(1,1,1)}  >
-        <planeGeometry args={[1, 1]} />
-        <meshBasicMaterial transparent opacity={0} />
+      <motion.mesh name={props.name} position={vec3(0, 0, 0)} scale={vec3(4,8,1)}  >
+        <planeGeometry args={[1, 1, 10, 10]} />
+        <meshBasicMaterial transparent opacity={0} wireframe />
         <Html
           occlude
           transform
-          position={vec3(0, 0, 0.01)}
-          scale={1}
+          position={vec3(0, 0, 0.1)}
+          scale={0.1}
           // material={material}
         // ref={htmlRef}
         >
