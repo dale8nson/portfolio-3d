@@ -43,3 +43,8 @@
   font-family: retro;
   src: url('/Retro Gaming.ttf');
 }
+
+@font-face {
+  font-family: trattatello;
+  src: url('/Trattatello.ttf');
+}

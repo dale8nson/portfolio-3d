@@ -1,3 +1,4 @@
+'use client'
 import { useVideoTexture } from '@react-three/drei'
 import { vec3 } from '@/lib/utils'
 

@@ -1,17 +1,15 @@
+'use client'
 import { useEffect, useRef, useMemo } from 'react'
 import * as THREE from 'three'
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Canvas, useLoader, extend, useFrame, useThree, useGraph, } from '@react-three/fiber'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useFBX, useTexture } from '@react-three/drei'
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { useGLTF, PerspectiveCamera, PointerLockControls, useCubeTexture, useTexture, useKeyboardControls } from '@react-three/drei'
+
 import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
 import { HoverUI } from './HoverUI'
 import { BoxCollider } from './BoxCollider'
-import { Button } from "@/components/ui/button"
-import Link from 'next/link'
 
-extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls])
+extend([PerspectiveCamera])
 
 export const ShowRoom = ({ children }) => {
 
@@ -20,38 +18,25 @@ export const ShowRoom = ({ children }) => {
   const colliderRef = useRef(null)
   const controlsRef = useRef(null)
 
-  const head = useGLTF('/head_planes_reference/scene.gltf')
-  head.scene.overrideMaterial = true
-  console.log(`head.scene: `, head.scene)
-
   const wp = useMemo(() => new THREE.Vector3(), [])
   const wd = useMemo(() => new THREE.Vector3(), [])
 
   camera.getWorldPosition(wp)
   camera.getWorldDirection(wd)
 
-  const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 0.9), [])
+  const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 0.1), [])
 
   console.log(`rc: `, rc)
 
   const map = useTexture('/sh_bk.png')
   map.wrapS = map.wrapT = THREE.RepeatWrapping
 
-  const headOBJ = useLoader(OBJLoader, '/uploads_files_3268159_model+S1.obj')
-  const { nodes: headNodes, materials: headMaterials } = useGraph(headOBJ)
-  console.log('headNodes: ', headNodes)
-  // for (const child of head.children) {
-  // child.material.wireframe = true
-  // child.material.color = 0xee0000
-  // child.material.side = THREE.DoubleSide
-  // }
   const canvasRef = useRef(null)
   const cameraRef = useRef(null)
-  const objectPositionRef = useRef(vec3(0, 0, 0))
 
   const GLTF = useGLTF('/modern_themed_show_room_updated/scene.gltf')
+  console.log('GLTF: ', GLTF)
   const nebula = useGLTF('/free_-_skybox_space_nebula/scene.gltf')
-  const cube = useGLTF('/uxrzone__basic_pointcloud_cube/scene.gltf')
 
   const forwardPressed = useKeyboardControls(state => state.forward)
   const backPressed = useKeyboardControls(state => state.back)
@@ -59,8 +44,8 @@ export const ShowRoom = ({ children }) => {
   const rightPressed = useKeyboardControls(state => state.right)
   const jumpPressed = useKeyboardControls(state => state.jump)
 
-
   const cubeMap = useCubeTexture(['px.png', 'nx.png', 'ny.png', 'py.png', 'pz.png', 'nz.png'], { path: '/Standard-Cube-Map/' })
+
   cubeMap.wrapS = cubeMap.wrapT = THREE.RepeatWrapping
   cubeMap.mapping = THREE.CubeRefractionMapping
   cubeMap.flipY = true
@@ -80,10 +65,10 @@ export const ShowRoom = ({ children }) => {
     const ds = speed * delta
 
     camera.getWorldDirection(wd)
-
     camera.getWorldPosition(wp)
+
     const rayOrigin = wp.clone()
-    rayOrigin.y = 0.4
+    rayOrigin.y = 0.3
 
     const rayDirection = wd.clone()
 
@@ -91,7 +76,6 @@ export const ShowRoom = ({ children }) => {
 
     // let objects = rc.intersectObject(colliderRef.current)
     let objects = rc.intersectObjects(scene.children)
-
 
     if (objects.length) console.log('objects: ', objects)
     const menu = objects.find(child => child.object.name === 'menu')
@@ -101,8 +85,11 @@ export const ShowRoom = ({ children }) => {
 
     if (forwardPressed && !objects.some(child => child.distance < 0.1)) {
 
-      camera.position.x += wd.x * ds
-      camera.position.z += wd.z * ds
+      // camera.position.x += wd.x * ds
+      // camera.position.z += wd.z * ds
+      // camera.position.x += pos.x * ds
+      // camera.position.z += pos.z * ds
+      controlsRef.current.moveForward(ds)
 
     }
     const backDirection = rayDirection.clone()
@@ -111,11 +98,13 @@ export const ShowRoom = ({ children }) => {
     // objects = rc.intersectObject(colliderRef.current)
     objects = rc.intersectObjects(scene.children)
 
-
     if (backPressed && !objects.some(child => child.distance < 0.1)) {
 
-      camera.position.x += wd.x * ds
-      camera.position.z += wd.z * ds
+      // camera.position.x += wd.x * ds
+      // camera.position.z += wd.z * ds
+      // camera.position.x += pos.x * ds
+      // camera.position.z += pos.z * ds
+      controlsRef.current.moveForward(-ds)
 
     }
 
@@ -128,7 +117,8 @@ export const ShowRoom = ({ children }) => {
 
     if (leftPressed && !objects.some(child => child.distance < 0.1)) {
 
-      camera.translateX(-ds)
+      // camera.translateX(-ds)
+      controlsRef.current.moveRight(-ds)
     }
 
     const rightDirection = new THREE.Vector3().crossVectors(backDirection, vec3(0, 1, 0))
@@ -139,21 +129,23 @@ export const ShowRoom = ({ children }) => {
 
     if (rightPressed && !objects.length) {
 
-      camera.translateX(ds)
+      // camera.translateX(ds)
+      controlsRef.current.moveRight(ds)
     }
+
+    // objectPositionRef.current = camera.position
   })
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0.75, 5]} ref={cameraRef} />
       <hemisphereLight />
-      {/* <primitive object={head.scene} material={<meshPhongMaterial color={0xee0000} emissive={0xee0000} />} position={vec3(0,1,2)}  scale={3} /> */}
+      <PerspectiveCamera makeDefault position={vec3(0, 0.75, 5)} ref={cameraRef} />
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
-      <HoverUI name='menu' position={vec3(0, 2, 4)} scale={.25} initial={{ y: 0.8 }} animate={{ y: 0.775 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} >
+      <HoverUI name='menu' position={vec3(0, 2, 4.3)} scale={0.25} initial={{ y: 0.8 }} animate={{ y: 0.775 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} >
         {children}
       </HoverUI>
-      <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
-      <motion.primitive object={GLTF.scene} scale={0.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
+      <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={vec3(0.04, 0.04, 0.04)} position={vec3(0, 0, 0)} rotation={new THREE.Euler(0, 0, 0)} />
+      <motion.primitive object={GLTF.scene} scale={.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <PointerLockControls ref={controlsRef} />
     </>
   )

@@ -1,10 +1,12 @@
 'use client'
 import { useMemo, useRef, useEffect, Suspense } from 'react'
 import { Canvas, useLoader, extend, useFrame } from '@react-three/fiber'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, Html } from '@react-three/drei'
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls } from '@react-three/drei'
 import { ShowRoom } from '/components/ShowRoom'
-
-extend([ShowRoom])
+import * as THREE from 'three'
+import { vec3 } from '/lib/utils'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls])
 
 export default function Layout({ children }) {
 
@@ -27,15 +29,12 @@ export default function Layout({ children }) {
     { name: 'jump', keys: ['Space'] },
   ], [])
 
-  extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls])
 
   return (
     <KeyboardControls map={map}>
-      <Suspense>
-        <Canvas ref={canvasRef} className='h-screen'>
-          {children}
-        </Canvas>
-      </Suspense>
+      <Canvas ref={canvasRef} className='h-screen'>
+        {children}
+      </Canvas>
     </KeyboardControls>
   )
 }
