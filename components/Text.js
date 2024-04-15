@@ -1,3 +1,4 @@
+'use client'
 import { useRef, useEffect, useState, forwardRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';

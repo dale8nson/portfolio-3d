@@ -1,3 +1,4 @@
+'use client'
 import { useRef, useEffect, forwardRef } from 'react'
 import * as THREE from 'three'
 import { vec3 } from '/lib/utils'
