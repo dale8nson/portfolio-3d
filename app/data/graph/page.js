@@ -1,6 +1,7 @@
 "use client";
 import request, { gql } from "graphql-request";
 import Plot from "react-plotly.js";
+import { TableSkeleton } from '/components/TableSkeleton'
 
 
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -82,6 +83,9 @@ export default function Graph() {
       pop = sortedCases.map((c) => c.population);
     }
   }
+
+  if(loading) return <TableSkeleton />
+  if(isPending) return <TabelSkeleton />
 
   return (
     <div className="h-screen w-screen flex">
