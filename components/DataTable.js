@@ -26,6 +26,8 @@ import {
   useMutation,
 } from '@tanstack/react-query'
 
+
+
 export const DataTable = () => {
 
   const parentRef = useRef(null)
@@ -169,6 +171,7 @@ export const DataTable = () => {
   if (loading) return <TableSkeleton />
 
   return (
+    <div className='h-screen w-screen flex-col' >
     <Table className='overflow-hidden'>
       <div style={{ height: `${virtualizer.getTotalSize()}px` }} className=" relative z-0 rounded-md border-solid border-black border-2 ">
       <div ref={parentRef} className='h-[650px] relative z-0 overflow-scroll'>
@@ -226,7 +229,10 @@ export const DataTable = () => {
       </div>
     </div>
       </Table >
-    
+
+
+</div>
+
 
   )
 }

@@ -2,20 +2,24 @@ import { useEffect, useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Canvas, useLoader, extend, useFrame, useThree, useGraph, } from '@react-three/fiber'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useFBX, useTexture } from '@react-three/drei'
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, Text, useFBX, useTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
 import { HoverUI } from './HoverUI'
 import { BoxCollider } from './BoxCollider'
-import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
+import { Terminal } from '/components/Terminal'
+import { Button, buttonVariants } from '/components/ui/button'
+import { GLButton2 } from '/components/GLButton2'
 
-extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls])
+extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls, Text])
 
-export const ShowRoom2 = ({debug, children }) => {
+export const ShowRoom2 = ({ debug, children }) => {
 
   const { scene, camera } = useThree()
+  const router = useRouter()
   console.log('camera: ', camera)
   const colliderRef = useRef(null)
   const controlsRef = useRef(null)
@@ -41,11 +45,7 @@ export const ShowRoom2 = ({debug, children }) => {
   const headOBJ = useLoader(OBJLoader, '/uploads_files_3268159_model+S1.obj')
   const { nodes: headNodes, materials: headMaterials } = useGraph(headOBJ)
   console.log('headNodes: ', headNodes)
-  // for (const child of head.children) {
-  // child.material.wireframe = true
-  // child.material.color = 0xee0000
-  // child.material.side = THREE.DoubleSide
-  // }
+
   const canvasRef = useRef(null)
   const cameraRef = useRef(null)
   const objectPositionRef = useRef(vec3(0, 0, 0))
@@ -60,7 +60,6 @@ export const ShowRoom2 = ({debug, children }) => {
   const rightPressed = useKeyboardControls(state => state.right)
   const jumpPressed = useKeyboardControls(state => state.jump)
 
-
   const cubeMap = useCubeTexture(['px.png', 'nx.png', 'ny.png', 'py.png', 'pz.png', 'nz.png'], { path: '/Standard-Cube-Map/' })
   cubeMap.wrapS = cubeMap.wrapT = THREE.RepeatWrapping
   cubeMap.mapping = THREE.CubeRefractionMapping
@@ -74,7 +73,6 @@ export const ShowRoom2 = ({debug, children }) => {
     if (!controlsRef.current) return
     console.log('controlsRef.current: ', controlsRef.current)
   })
-
 
   useFrame((_, delta) => {
     if (!camera || !rc) return
@@ -99,11 +97,12 @@ export const ShowRoom2 = ({debug, children }) => {
     let objects = rc.intersectObjects(scene.children)
 
 
-    if (objects.length) console.log('objects: ', objects)
-    const menu = objects.find(child => child.object.name === 'menu')
+    // if (objects.length) console.log('objects: ', objects)
+    const menu = objects.find(child => child.object.name === 'menu' || child.object.name === 'terminal')
     if (menu) {
       controlsRef.current.unlock()
     }
+    // else if (controlsRef.current.isLocked) controlsRef.current.lock()
 
     if (forwardPressed && !objects.some(child => child.distance < 0.1)) {
 
@@ -115,10 +114,7 @@ export const ShowRoom2 = ({debug, children }) => {
     backDirection.z *= -1
     backDirection.x *= -1
     rc.set(rayOrigin, backDirection)
-    // lines.current.push(new Float32Array([...rayOrigin.toArray(), ...rayOrigin.add(backDirection).addScalar(0.1).toArray()]))
-    // objects = rc.intersectObject(colliderRef.current)
     objects = rc.intersectObjects(scene.children)
-
 
     if (backPressed && !objects.some(child => child.distance < 0.1)) {
 
@@ -155,41 +151,26 @@ export const ShowRoom2 = ({debug, children }) => {
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0.75, 5]} ref={cameraRef} />
+      <PerspectiveCamera makeDefault position={[0, 0.8, 5]} ref={cameraRef} />
       <hemisphereLight />
-      {debug && lines.current.length && (
-        <>
-          <line>
-            <bufferGeometry>
-              <bufferAttribute attach="attributes-position" count={2} array={lines.current[0]} itemSize={2} />
-            </bufferGeometry>
-            <lineBasicMaterial color={0xee0000} />
-          </line>
-          <line>
-            <bufferGeometry>
-              <bufferAttribute attach="attributes-position" count={2} array={lines.current[1]} itemSize={2} />
-            </bufferGeometry>
-            <lineBasicMaterial color={0xee0000} />
-          </line>
-          <line>
-            <bufferGeometry>
-              <bufferAttribute attach="attributes-position" count={2} array={lines.current[2]} itemSize={2} />
-            </bufferGeometry>
-            <lineBasicMaterial color={0xee0000} />
-          </line>
-          <line>
-            <bufferGeometry>
-              <bufferAttribute attach="attributes-position" count={2} array={lines.current[3]} itemSize={2} />
-            </bufferGeometry>
-            <lineBasicMaterial color={0xee0000} />
-          </line>
-        </>
-      )}
-      {/* <primitive object={head.scene} material={<meshPhongMaterial color={0xee0000} emissive={0xee0000} />} position={vec3(0,1,2)}  scale={3} /> */}
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
-      <HoverUI name='menu' position={vec3(0, 2, 2)} scale={.25} initial={{ y: 0.8 }} animate={{ y: 0.775 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} opacity={0} >
+      <HoverUI name='menu' position={vec3(0, -.5, 3.5)} scale={.5} initial={{ y: 0.6 }} animate={{ y: 0.585 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} opacity={0} >
         {children}
       </HoverUI>
+      <Terminal position={[1.2, 0.75, 2.68]} rotation={new THREE.Euler(0,Math.PI/2, 0)}>
+        <Text name='terminal' font='/nasalization-rg.otf' position={[0, 0.4, 0.6]} scale={0.08} color={0xff22ff} characters='DAVISULNTES'>
+          DATA VISUALISATION
+        </Text>
+        <group name='terminal' onClick={() => router.push('/data')}>
+        <Text font='/nasalization-rg.otf' position={[0, 0, 0.6]} scale={0.08} color={0xff00ff88} characters='VIST'>
+          VISIT
+        </Text>
+        <motion.mesh initial={{opacity:0}} whileHover={{opacity:0.7}} position={[0,0,0.1]} scale={[0.4,0.5,4]}>
+          <planeGeometry args={[1,1]} />
+          <meshBasicMaterial transparent color={0x0000aa} opacity={0}  />
+        </motion.mesh>
+        </group>
+      </Terminal>
       <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <motion.primitive object={GLTF.scene} scale={0.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <PointerLockControls ref={controlsRef} />

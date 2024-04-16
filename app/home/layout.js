@@ -32,9 +32,11 @@ export default function Layout({ children }) {
 
   return (
     <KeyboardControls map={map}>
-      <Canvas ref={canvasRef} className='h-screen'>
-        {children}
-      </Canvas>
+      <div className='h-screen w-screen absolute top-0 left-0'>
+        <Canvas ref={canvasRef} className='h-screen'>
+          {children}
+        </Canvas>
+      </div>
     </KeyboardControls>
   )
 }
