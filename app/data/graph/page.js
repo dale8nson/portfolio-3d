@@ -84,8 +84,9 @@ export default function Graph() {
     }
   }
 
-  if(loading) return <TableSkeleton />
   if(isPending) return <TableSkeleton />
+  if(loading) return <TableSkeleton />
+  
 
   return (
     <div className="h-screen w-screen flex">
