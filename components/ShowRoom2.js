@@ -39,9 +39,6 @@ export const ShowRoom2 = ({ debug, children }) => {
   const map = useTexture('/sh_bk.png')
   map.wrapS = map.wrapT = THREE.RepeatWrapping
 
-  const { nodes: headNodes, materials: headMaterials } = useGraph(headOBJ)
-  console.log('headNodes: ', headNodes)
-
   const canvasRef = useRef(null)
   const cameraRef = useRef(null)
   const objectPositionRef = useRef(vec3(0, 0, 0))
