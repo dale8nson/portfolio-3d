@@ -2,7 +2,7 @@
 import { Canvas, extend } from '@react-three/fiber'
 import { Html } from '@react-three/drei'
 
-extend([Html, AsciiRenderer])
+extend([Html])
 
 export default function Loading() {
   return (
