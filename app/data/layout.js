@@ -7,8 +7,8 @@ export default function Layout({ children }) {
     <div className='h-screen w-screen flex-col align-middle mx-auto'>
       <div className='flex mx-auto' >
         <Button><Link href='/data/form'>FORM</Link></Button>
-        <Button><Link href='/data/graph'>GRAPH</Link></Button>
-        <Button><Link href='/home'>GRAPH</Link></Button>
+        {/* <Button><Link href='/data/graph'>GRAPH</Link></Button> */}
+        <Button><Link href='/home'>HOME</Link></Button>
 
       </div>
       {children}
