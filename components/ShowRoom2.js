@@ -39,7 +39,6 @@ export const ShowRoom2 = ({ debug, children }) => {
   const map = useTexture('/sh_bk.png')
   map.wrapS = map.wrapT = THREE.RepeatWrapping
 
-  const headOBJ = useLoader(OBJLoader, '/uploads_files_3268159_model+S1.obj')
   const { nodes: headNodes, materials: headMaterials } = useGraph(headOBJ)
   console.log('headNodes: ', headNodes)
 
@@ -49,7 +48,6 @@ export const ShowRoom2 = ({ debug, children }) => {
 
   const GLTF = useGLTF('/modern_themed_show_room_updated/scene.gltf')
   const nebula = useGLTF('/free_-_skybox_space_nebula/scene.gltf')
-  const cube = useGLTF('/uxrzone__basic_pointcloud_cube/scene.gltf')
 
   const forwardPressed = useKeyboardControls(state => state.forward)
   const backPressed = useKeyboardControls(state => state.back)
