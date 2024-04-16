@@ -1,7 +1,9 @@
+
 import { Suspense } from 'react'
 import clientPromise from '@/lib/mongodb'
 import { DataEntry } from '@/components/DataEntry'
 import { DataTable } from '@/components/DataTable'
+
 
 
 export default async function Page() {

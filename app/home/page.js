@@ -14,7 +14,6 @@ export default function Home() {
 
     canvasRef.current.style.width = `${outerWidth}px`
     canvasRef.current.style.height = `${outerHeight}px`
-
   })
 
   return (
