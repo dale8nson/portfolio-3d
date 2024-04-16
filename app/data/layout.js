@@ -8,6 +8,8 @@ export default function Layout({ children }) {
       <div className='flex mx-auto' >
         <Button><Link href='/data/form'>FORM</Link></Button>
         <Button><Link href='/data/graph'>GRAPH</Link></Button>
+        <Button><Link href='/home'>GRAPH</Link></Button>
+
       </div>
       {children}
     </div>
