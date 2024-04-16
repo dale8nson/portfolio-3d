@@ -1,8 +1,9 @@
+'use client'
 import { useEffect, useRef, useMemo } from 'react'
 import * as THREE from 'three'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Canvas, useLoader, extend, useFrame, useThree, useGraph, } from '@react-three/fiber'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, Text, useFBX, useTexture } from '@react-three/drei'
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, Text, useTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
