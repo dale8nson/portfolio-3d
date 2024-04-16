@@ -26,10 +26,6 @@ export const ShowRoom2 = ({ debug, children }) => {
   const controlsRef = useRef(null)
   const lines = useRef([])
 
-  const head = useGLTF('/head_planes_reference/scene.gltf')
-  head.scene.overrideMaterial = true
-  console.log(`head.scene: `, head.scene)
-
   const wp = useMemo(() => new THREE.Vector3(), [])
   const wd = useMemo(() => new THREE.Vector3(), [])
 
