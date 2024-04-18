@@ -141,7 +141,7 @@ export const DataTable = () => {
 
   if (isPending) return <TableSkeleton />
   if (loading) return <TableSkeleton />
-
+ 
   return (
     <div className='h-[90%] w-screen p-2 flex-col  flex-col w-11/12 h-full mx-auto mb-4 border-solid border-black bg-white border-2 rounded-md' >
       <div  className=" h-[95%] relative z-0 h-full mb-4 pb-4 rounded-md border-solid border-black border-2 overflow-scroll ">
