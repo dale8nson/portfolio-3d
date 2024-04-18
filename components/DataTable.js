@@ -144,7 +144,7 @@ export const DataTable = () => {
  
   return (
     <div className='h-[90%] w-screen p-2 flex-col  flex-col w-11/12 h-full mx-auto mb-4 border-solid border-black bg-white border-2 rounded-md' >
-      <div  className=" h-[95%] relative z-0 h-full mb-4 pb-4 rounded-md border-solid border-black border-2 overflow-scroll ">
+      <div  className=" h-[90%] relative z-0 h-full mb-4 pb-4 rounded-md border-solid border-black border-2 overflow-scroll ">
         <Table ref={parentRef} style={{ height: `${virtualizer.getTotalSize()}px` }} className=''>
           <TableHeader className='bg-white outline outline-2 outline-offset-[-1px] p-2 z-50 w-full h-20 top-8 left-0' >
             {table.getHeaderGroups().map((headerGroup) => (
