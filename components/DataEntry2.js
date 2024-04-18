@@ -47,7 +47,7 @@ const dataForm = z.object({
   unvaccinatedDeaths: z.coerce.number().int({ invalid_type_error: 'Number must be an integer.' }).nonnegative({ invalid_type_error: 'Number must be non-negative.' })
 })
 
-export const DataEntry = () => {
+export const DataEntry2 = () => {
 
   const queryClient = useQueryClient()
 
@@ -62,6 +62,21 @@ export const DataEntry = () => {
       vaccinatedDeaths: '',
       unvaccinatedDeaths: ''
     }
+  })
+
+  console.log('form: ', form)
+  // eslint-disable-next-line quotes
+  const query = gql`  
+    query hello {
+      hello
+    }
+  `
+
+  // console.log('query: ', query)
+
+  const { data } = useQuery({
+    queryKey: ['hello'],
+    queryFn: async () => request('/api/graphql', query)
   })
 
   const addCaseQuery = gql`
@@ -81,11 +96,13 @@ export const DataEntry = () => {
       }
     }`
 
+
+
   const addCaseMutation = useMutation({
     mutationFn: async (data) => {
-      // console.log(`mutationFn data: `, data)
+      console.log(`mutationFn data: `, data)
       const { date, population, vaccinated, unvaccinated, deaths, vaccinatedDeaths, unvaccinatedDeaths } = data
-      const { day, month, year } = date
+      const { day, month, year } = data.date
 
       const variables = {
         "date": {
@@ -110,7 +127,7 @@ export const DataEntry = () => {
 
   function onSubmit(values) {
 
-    // console.log('values: ', values)
+    console.log('values: ', values)
     const {date, population, vaccinated, unvaccinated, deaths, vaccinatedDeaths, unvaccinatedDeaths } = values
     const [day, month, year] = [date.getDate(), date.getMonth() + 1, date.getFullYear()]
 
@@ -141,6 +158,7 @@ export const DataEntry = () => {
     } catch (e) {
       console.log(`e: `, e)
     }
+
   }
 
   return (
@@ -184,6 +202,8 @@ export const DataEntry = () => {
                     />
                   </PopoverContent>
                 </Popover>
+                <FormDescription>
+                </FormDescription>
               </FormItem>
             )}
           />
@@ -274,11 +294,9 @@ export const DataEntry = () => {
           <Button type="submit">Add</Button>
         </form>
       </Form>
+      {/* {addCaseMutation.isPending && <h1>Adding data...</h1>}
+      {addCaseMutation.isSuccess && <h1 className='text-green-400'>Data added</h1>}
+      {addCaseMutation.isError && <h1 className='text-red-500'>An error occurred while adding the data: {addCaseMutation.error.message}</h1>} */}
     </div>
   )
 }
-
-
- {/* {addCaseMutation.isPending && <h1>Adding data...</h1>}
-      {addCaseMutation.isSuccess && <h1 className='text-green-400'>Data added</h1>}
-      {addCaseMutation.isError && <h1 className='text-red-500'>An error occurred while adding the data: {addCaseMutation.error.message}</h1>} */}

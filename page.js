@@ -3,7 +3,6 @@ import request, { gql } from "graphql-request";
 import Plot from "react-plotly.js";
 import { TableSkeleton } from '/components/TableSkeleton'
 
-
 import { useQuery, useMutation } from "@tanstack/react-query";
 
 export default function Graph() {
@@ -31,7 +30,7 @@ export default function Graph() {
     queryFn: async () => request("/api/graphql", query),
   });
 
-  console.log("DataTable graphql query data: ", data?.cases);
+  // console.log("DataTable graphql query data: ", data?.cases);
 
   let cases;
   let sortedCases = [];
@@ -202,7 +201,6 @@ export default function Graph() {
             "Rates of COVID deaths among vaccinated and unvaccinated compared to vaccination rates in the NSW population",
         }}
       />
-   
     </div>
   )
 }
