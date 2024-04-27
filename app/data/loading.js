@@ -1,6 +1,6 @@
 'use client'
 import { Canvas, extend } from '@react-three/fiber'
-import { Html } from '@react-three/drei'
+import { Html, Text } from '@react-three/drei'
 
 extend([Html])
 
