@@ -25,7 +25,7 @@ export default function Home() {
             <Link href='/home/about'>About</Link>
           </Button>
           <Button className='bg-transparent h-2 p-2 mx-auto my-0 font-[nasalization] text-[#338833] hover:bg-[#33aa33] hover:bg-opacity-50 hover:text-[#33cc33] align-items-center transition-color duration-500' >
-            Resume
+            <Link href='/home/resume' >Resume </Link>
           </Button>
           <Button className='bg-transparent p-2 h-2 mx-auto my-0 font-[nasalization] text-[#338833] hover:bg-[#33aa33] hover:bg-opacity-50 hover:text-[#33cc33] transition-color duration-500' >
             Projects
