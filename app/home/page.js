@@ -3,8 +3,11 @@ import { useEffect, useRef, useMemo } from 'react'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { ShowRoom2 } from '/components/ShowRoom2'
+import { useFBX } from '@react-three/drei'
 
 export default function Home() {
+
+  useFBX.preload('/resume/resume2.fbx')
 
   const canvasRef = useRef(null)
 
