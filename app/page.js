@@ -143,13 +143,13 @@ export default function Entrance() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between bg-black '>
       <Canvas ref={canvasRef} camera={{ manual: false }}>
-        <hemisphereLight intensity={1} />
+        {/* <hemisphereLight intensity={1} /> */}
         <motion.group initial={{ rotateY: -1.5 }} animate={{ rotateY: 0 }} transition={{ duration: 24, repeatType: 'mirror', repeat: Infinity }}>
           <DoubleDoors color={0} ref={doubleDoorRef} position={vec3(0, 0, -3)} scale={1.2} />
           <Fence position={[-0.15, -3.5, 0]} animRef={fenceAnim} />
           <Warning position={[0, -0.9, -2.7]} envMap={envMap} animRefs={animRefs} />
-          <Excavator position={[0, 0, 0]} />
-          <VideoMesh url='/5680034-hd_1920_1080_24fps.mp4' scale={vec3(.35, .72, .2)} position={vec3(0, 0, -3.1)} />
+          <Excavator position={[0, -1, 0]} />
+          <VideoMesh url='/5680034-hd_1920_1080_24fps.mp4' scale={1} position={vec3(0, 0, -3.1)} />
           <EntryCamera ref={camRef} position={vec3(0, 0, 10)} onFinished={onFinished} />
           {envMap && <motion.group style={{ transformOrigin: '50% 50%' }}>
             <motion.pointLight initial={{ x: -5.5, y: -2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: 13, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />

@@ -2,7 +2,7 @@
 import { useRef, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Canvas } from '@react-three/fiber'
-import { HomeButton } from '/Components/HomeButton'
+import { HomeButton } from '/components/HomeButton'
 import { Resume } from '/components/Resume'
 
 export default function Page() {
