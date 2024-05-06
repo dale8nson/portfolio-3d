@@ -1,5 +1,5 @@
 'use client'
-import { useMemo, useRef, useEffect, Suspense } from 'react'
+import { useMemo, useRef, useEffect, Suspense, createContext } from 'react'
 import { Canvas, useLoader, extend, useFrame } from '@react-three/fiber'
 import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls } from '@react-three/drei'
 import { ShowRoom } from '/components/ShowRoom'
@@ -7,8 +7,18 @@ import * as THREE from 'three'
 import { vec3 } from '/lib/utils'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls])
+import { useRouter } from 'next/navigation'
+import { useStore } from '/lib/store'
+import { RouterProvider } from '/components/RouterProvider'
 
 export default function Layout({ children }) {
+
+  const router = useRouter()
+  const routerContext = createContext(useRouter())
+
+  const onClick = () => router.push('/home')
+  // const { setRouter } = useStore(state => state)
+  // setRouter(useRouter())
 
   const canvasRef = useRef(null)
 
@@ -33,9 +43,9 @@ export default function Layout({ children }) {
   return (
     <KeyboardControls map={map}>
       <div className='h-screen w-screen absolute top-0 left-0'>
-        <Canvas ref={canvasRef} className='h-screen'>
-          {children}
-        </Canvas>
+        <RouterProvider>
+            {children}
+        </RouterProvider>
       </div>
     </KeyboardControls>
   )
