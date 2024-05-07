@@ -1,4 +1,106 @@
+<<<<<<< Updated upstream
 import Image from "next/image";
+=======
+'use client'
+import { useRef, useEffect, useState, Suspense } from 'react'
+import * as THREE from 'three'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { motion } from 'framer-motion-3d'
+import { GLButton } from '@/components/GLButton'
+import { DoubleDoors } from '@/components/DoubleDoors'
+import { EntryCamera } from '/components/EntryCamera'
+import { Text } from '/components/Text'
+import { vec3 } from '@/lib/utils'
+import { VideoMesh } from '/components/VideoMesh'
+import { useStore } from '/lib/store'
+import { Warning } from '/components/Warning'
+import { Fence } from '/components/Fence'
+import { Excavator} from '/components/Excavator'
+
+
+export default function Entrance() {
+  
+  const canvasRef = useRef(null)
+  const camRef = useRef(null)
+  const pixelBoxRef = useRef(null)
+  const doubleDoorRef = useRef(null)
+  const lightFlareRef = useRef(null)
+  const lightFlareClip = useRef(null)
+  const lightFlareAction = useRef(null)
+  const animRefs = useRef(null)
+  const fenceAnim = useRef(null)
+
+  let envMap, worldMap
+
+  const [envMapState, setEnvMapState] = useState(null);
+  envMap = envMapState;
+  const [worldMapState, setWorldMapState] = useState(null);
+  const [mixer, setMixer] = useState(null)
+
+  worldMap = worldMapState
+
+  useEffect(() => {
+
+    if (!canvasRef.current) return
+    console.log('canvasRef.current: ', canvasRef.current)
+
+    console.log('pixelBoxRef.current: ', pixelBoxRef.current)
+    if (typeof window !== 'undefined') {
+      const { outerWidth, outerHeight } = window;
+      canvasRef.current.setAttribute('width', outerWidth)
+      canvasRef.current.setAttribute('height', outerHeight)
+    }
+
+    setWorldMapState(new THREE.CubeTextureLoader().setPath('/').load(['Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png', 'Texturelabs_Atmosphere_133L.png']))
+
+    setEnvMapState(new THREE.CubeTextureLoader().setPath('/').load(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png']))
+
+  }, [])
+
+  useEffect(() => {
+    if (!mixer) return
+
+    const lightFlareTrack = new THREE.NumberKeyframeTrack('.progress', [0, 0.5, 6], [0, 0.6, 1])
+    const lightFlareMoveTrack = new THREE.NumberKeyframeTrack('.position[z]', [0, 6], [-3.5, -2.5])
+    lightFlareClip.current = new THREE.AnimationClip('', 6, [lightFlareTrack, lightFlareMoveTrack])
+    lightFlareAction.current = mixer.clipAction(lightFlareClip.current)
+    lightFlareAction.current.setLoop(THREE.LoopOnce)
+    lightFlareAction.current.clampWhenFinished = true
+
+    mixer.addEventListener('finished', () => router.push('/home'))
+
+  }, [mixer])
+
+  const onFinished = () => router.push('/home')
+
+  const onClick = () => {
+    doubleDoorRef.current.open()
+    camRef.current.play()
+    console.log('cameRef.current: ', camRef.current)
+    if(animRefs.current) {
+      console.log('animRefs.current: ', animRefs.current)
+      for (const anim of animRefs.current) {
+        anim.clampWhenFinished = true
+        anim.setLoop(THREE.LoopOnce)
+        setTimeout(() => {
+          anim.startAt(0).reset().play()
+          fenceAnim.current.startAt(0).reset().play()
+        }, 3000)
+      }
+    }
+  }
+
+  if (envMapState && worldMapState) {
+    envMapState.mapping = THREE.CubeReflectionMapping;
+    worldMapState.mapping = THREE.CubeRefractionMapping;
+  }
+
+  const centreNode = node => {
+    if (!node) return;
+    node.geometry.computeBoundingBox()
+    node.geometry.center()
+  }
+>>>>>>> Stashed changes
 
 export default function Home() {
   return (
