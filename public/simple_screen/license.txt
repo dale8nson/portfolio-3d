@@ -1,0 +1,8 @@
+Model Information:
+* title:	Simple Screen
+* source:	https://sketchfab.com/3d-models/simple-screen-6ff25e665ff94bf08e881a6bb7885cb7
+* author:	MrSeb06 (https://sketchfab.com/mihneasebastian06)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works
