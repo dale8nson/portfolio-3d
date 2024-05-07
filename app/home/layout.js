@@ -3,7 +3,7 @@ import { useMemo, useRef, useEffect } from 'react'
 
 import { extend } from '@react-three/fiber'
 import {  KeyboardControls } from '@react-three/drei'
-extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls])
+extend([KeyboardControls])
 
 import { RouterProvider } from '/components/RouterProvider'
 
