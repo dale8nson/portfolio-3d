@@ -2,32 +2,53 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+
+@font-face {
+  font-family: technology;
+  src: url('/Technology.ttf');
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+@font-face {
+  font-family: scoreboard;
+  src: url('/scoreboard.ttf');
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+@font-face {
+  font-family: led;
+  src: url('/The\ Led\ Display\ St.ttf');
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+@font-face {
+  font-family: nasalization;
+  src: url('/nasalization-rg.otf');
+}
+
+@font-face {
+  font-family: hybrid;
+  src: url('/hybrid_o.ttf');
+}
+
+@font-face {
+  font-family: terminator ;
+  src: url('/terminator\ real\ nfi.ttf');
+}
+
+@font-face {
+  font-family: venus;
+  src: url('/venus\ rising\ rg.otf');
+}
+
+
+@font-face {
+  font-family: retro;
+  src: url('/Retro Gaming.ttf');
+}
+
+@font-face {
+  font-family: trattatello;
+  src: url('/Trattatello.ttf');
+}
+
+p {
+  margin-bottom: 0.5rem;
 }

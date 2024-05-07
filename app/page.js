@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 import Image from "next/image";
 =======
@@ -7,18 +8,38 @@ import * as THREE from 'three'
 import { Canvas, useFrame, useLoader } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { GLButton } from '@/components/GLButton'
+=======
+'use client'
+import { useRef, useEffect, useState, Suspense } from 'react'
+import * as THREE from 'three'
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
+import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { Text3D, useVideoTexture, useFBX, useGLTF } from '@react-three/drei'
+import { motion } from 'framer-motion-3d'
+import { GLButton } from '@/components/GLButton'
+import { BaseShaderComponent } from '/components/BaseShaderComponent'
+import { lightFlareShader } from '/lib/shaders'
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 import { DoubleDoors } from '@/components/DoubleDoors'
 import { EntryCamera } from '/components/EntryCamera'
 import { Text } from '/components/Text'
 import { vec3 } from '@/lib/utils'
+<<<<<<< HEAD
 import { VideoMesh } from '/components/VideoMesh'
 import { useStore } from '/lib/store'
+=======
+import { useRouter } from 'next/navigation'
+import { VideoMesh } from '/components/VideoMesh'
+import { useStore } from '/lib/store'
+import { Lamp } from '/components/Lamp'
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 import { Warning } from '/components/Warning'
 import { Fence } from '/components/Fence'
 import { Excavator} from '/components/Excavator'
 
 
 export default function Entrance() {
+<<<<<<< HEAD
   
   const canvasRef = useRef(null)
   const camRef = useRef(null)
@@ -31,6 +52,39 @@ export default function Entrance() {
   const fenceAnim = useRef(null)
 
   let envMap, worldMap
+=======
+  // const underConstruction = useFBX('/plastic construction barriers HP/type 1/type 1.fbx')
+  // const worker = useFBX('/0_4k_LOD0.Fbx')
+  // const excavator = useFBX('/excavator/excavator.fbx')
+  // console.log('excavator: ', excavator)
+  // const fence = useLoader(GLTFLoader, '/fence/fence.gltf')
+  // console.log('fence: ', fence)
+  // const FenceMesh = ({position}) => (
+  //   <mesh geometry={fence.scene.children[0].geometry} material={fence.scene.children[0].material} position={position} scale={0.02} rotation={new THREE.Euler(0, -Math.PI / 2, 0)} />
+  // )
+
+  const canvasRef = useRef(null)
+  const camRef = useRef(null)
+  const cubeMapRef = useRef(null)
+  const uiRef = useRef(null)
+  const pixelBoxRef = useRef(null)
+  const doubleDoorRef = useRef(null)
+  const fogRef = useRef(null)
+  const lightFlareRef = useRef(null)
+  const lightFlareClip = useRef(null)
+  const lightFlareMixer = useRef()
+  const lightFlareAction = useRef(null)
+  const videoRef = useRef(null)
+  const lightMixer = useRef()
+  const lightRef = useRef(null)
+  const flash = useRef()
+  const animRefs = useRef(null)
+  const fenceAnim = useRef(null)
+
+
+  console.log('lightFlareRef.current: ', lightFlareRef.current)
+  let envMap, setEnvMap, worldMap, setWorldMap
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 
   const [envMapState, setEnvMapState] = useState(null);
   envMap = envMapState;
@@ -39,6 +93,16 @@ export default function Entrance() {
 
   worldMap = worldMapState
 
+<<<<<<< HEAD
+=======
+  const initTextNode = node => {
+    if (!node) return;
+    node.geometry.computeBoundingBox()
+    node.geometry.center()
+  }
+
+
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
   useEffect(() => {
 
     if (!canvasRef.current) return
@@ -69,6 +133,16 @@ export default function Entrance() {
 
     mixer.addEventListener('finished', () => router.push('/home'))
 
+<<<<<<< HEAD
+=======
+    console.log('mixer: ', mixer)
+
+    // lightMixer.current = new THREE.AnimationMixer(lightRef.current)
+    // flash.current = lightMixer.current.clipAction(lamp.animations[0])
+    // flash.current.setLoop(THREE.LoopRepeat)
+    // flash.current.play()
+
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
   }, [mixer])
 
   const onFinished = () => router.push('/home')
@@ -77,9 +151,17 @@ export default function Entrance() {
     doubleDoorRef.current.open()
     camRef.current.play()
     console.log('cameRef.current: ', camRef.current)
+<<<<<<< HEAD
     if(animRefs.current) {
       console.log('animRefs.current: ', animRefs.current)
       for (const anim of animRefs.current) {
+=======
+    // lightFlareAction.current.play()
+    if(animRefs.current) {
+      console.log('animRefs.current: ', animRefs.current)
+      for (const anim of animRefs.current) {
+        // anim.paused = false
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
         anim.clampWhenFinished = true
         anim.setLoop(THREE.LoopOnce)
         setTimeout(() => {
@@ -87,6 +169,10 @@ export default function Entrance() {
           fenceAnim.current.startAt(0).reset().play()
         }, 3000)
       }
+<<<<<<< HEAD
+=======
+      // animRefs.current[0].reset().play()
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
     }
   }
 
@@ -100,116 +186,35 @@ export default function Entrance() {
     node.geometry.computeBoundingBox()
     node.geometry.center()
   }
+<<<<<<< HEAD
 >>>>>>> Stashed changes
+=======
+>>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 
-export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main className='flex min-h-screen flex-col items-center justify-between bg-black '>
+      <Canvas ref={canvasRef} camera={{ manual: false }}>
+        {/* <hemisphereLight intensity={1} /> */}
+        <motion.group initial={{ rotateY: -1.5 }} animate={{ rotateY: 0 }} transition={{ duration: 24, repeatType: 'mirror', repeat: Infinity }}>
+          <DoubleDoors color={0} ref={doubleDoorRef} position={vec3(0, 0, -3)} scale={1.2} />
+          <Fence position={[-0.15, -3.5, 0]} animRef={fenceAnim} />
+          <Warning position={[0, -0.9, -2.7]} envMap={envMap} animRefs={animRefs} />
+          <Excavator position={[0, -1, 0]} />
+          <VideoMesh url='/5680034-hd_1920_1080_24fps.mp4' scale={1} position={vec3(0, 0, -3.1)} />
+          <EntryCamera ref={camRef} position={vec3(0, 0, 10)} onFinished={onFinished} />
+          {envMap && <motion.group style={{ transformOrigin: '50% 50%' }}>
+            <motion.pointLight initial={{ x: -5.5, y: -2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: 13, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />
+            <motion.pointLight initial={{ x: 0, y: 2, z: 1, rotateY: 0, rotateX: 0 }} animate={{ x: -5.5, y: 0, z: 1, rotateY: 0, rotateX: 0 }} transition={{ duration: 5, repeatType: 'mirror', repeat: Infinity }} intensity={30} />
+            <Text envMap={envMap} initial={{ x: 0, y: 5, z: 11, rotateY: 0, rotateY: -32 }} animate={{ x: 0, y: 3.5, z: 0, rotateY: 0, rotateX: 0 }} transition={{ duration: 5 }} position={vec3(0, 0.6, 0)} scale={vec3(0.75, 1, 1)} font='/Itai Protests_Regular.json' >
+              WELCOME TO
+            </Text>
+          </motion.group>}
+          <Text position={vec3(9, 0, 0)} scale={0.7} initial={{ x: 0, y: 4, z: 5, rotateY: 13, rotateX: 0, originX: 0.5, originY: 0.5, originZ: 0 }} animate={{ x: 0, y: 2.4, z: 0, rotateY: 0, rotateX: 0, originX: 0.5, originY: 0.5, originZ: 0 }} transition={{ duration: 5 }} font='/Itai Protests_Regular.json' envMap={envMap} emissive={0xeebb00} attach='material-0' color={0xeebb00} shininess={100} refractionRatio={1} >
+            DaleTristanHutchinson.com
+          </Text>
+          <GLButton {...{ cubeMap: envMap }} position = {vec3(0, 1.2, 0)} onClick={onClick}>ENTER</GLButton>
+        </motion.group>
+      </Canvas>
     </main>
-  );
+  )
 }
