@@ -1,26 +1,13 @@
 'use client'
-
-<<<<<<< HEAD
 import { forwardRef, useRef, useEffect } from 'react'
-=======
-import { forwardRef, useRef, useEffect, useImperativeHandle, useState } from 'react'
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { vec3 } from '../lib/utils'
 import { ShaderObj } from '../lib/shaders'
 
-
 export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geometry, uniforms, fragmentShader, vertexShader, motionProps = {}, animations = [], position = vec3(0, 0, 0), scale = vec3(1, 1, 1), rotation = new THREE.Euler(0, 0, 0), mixer, setMixer, debug = false }, ref) {
 
-<<<<<<< HEAD
-=======
-  console.log('ref: ', ref)
-
-
-  const tracks = useRef({})
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
   const clips = useRef([])
   const actions = useRef([])
   const componentRef = useRef(null)

@@ -1,46 +1,20 @@
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-import Image from "next/image";
-=======
 'use client'
 import { useRef, useEffect, useState, Suspense } from 'react'
 import * as THREE from 'three'
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
+import { Canvas } from '@react-three/fiber'
 import { motion } from 'framer-motion-3d'
 import { GLButton } from '@/components/GLButton'
-=======
-'use client'
-import { useRef, useEffect, useState, Suspense } from 'react'
-import * as THREE from 'three'
-import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-import { Canvas, useFrame, useLoader } from '@react-three/fiber'
-import { Text3D, useVideoTexture, useFBX, useGLTF } from '@react-three/drei'
-import { motion } from 'framer-motion-3d'
-import { GLButton } from '@/components/GLButton'
-import { BaseShaderComponent } from '/components/BaseShaderComponent'
-import { lightFlareShader } from '/lib/shaders'
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 import { DoubleDoors } from '@/components/DoubleDoors'
 import { EntryCamera } from '/components/EntryCamera'
 import { Text } from '/components/Text'
 import { vec3 } from '@/lib/utils'
-<<<<<<< HEAD
 import { VideoMesh } from '/components/VideoMesh'
-import { useStore } from '/lib/store'
-=======
-import { useRouter } from 'next/navigation'
-import { VideoMesh } from '/components/VideoMesh'
-import { useStore } from '/lib/store'
-import { Lamp } from '/components/Lamp'
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 import { Warning } from '/components/Warning'
 import { Fence } from '/components/Fence'
-import { Excavator} from '/components/Excavator'
+import { Excavator } from '/components/Excavator'
 
 
 export default function Entrance() {
-<<<<<<< HEAD
-  
   const canvasRef = useRef(null)
   const camRef = useRef(null)
   const pixelBoxRef = useRef(null)
@@ -50,41 +24,9 @@ export default function Entrance() {
   const lightFlareAction = useRef(null)
   const animRefs = useRef(null)
   const fenceAnim = useRef(null)
-
-  let envMap, worldMap
-=======
-  // const underConstruction = useFBX('/plastic construction barriers HP/type 1/type 1.fbx')
-  // const worker = useFBX('/0_4k_LOD0.Fbx')
-  // const excavator = useFBX('/excavator/excavator.fbx')
-  // console.log('excavator: ', excavator)
-  // const fence = useLoader(GLTFLoader, '/fence/fence.gltf')
-  // console.log('fence: ', fence)
-  // const FenceMesh = ({position}) => (
-  //   <mesh geometry={fence.scene.children[0].geometry} material={fence.scene.children[0].material} position={position} scale={0.02} rotation={new THREE.Euler(0, -Math.PI / 2, 0)} />
-  // )
-
-  const canvasRef = useRef(null)
-  const camRef = useRef(null)
-  const cubeMapRef = useRef(null)
-  const uiRef = useRef(null)
-  const pixelBoxRef = useRef(null)
-  const doubleDoorRef = useRef(null)
-  const fogRef = useRef(null)
-  const lightFlareRef = useRef(null)
-  const lightFlareClip = useRef(null)
-  const lightFlareMixer = useRef()
-  const lightFlareAction = useRef(null)
-  const videoRef = useRef(null)
-  const lightMixer = useRef()
-  const lightRef = useRef(null)
-  const flash = useRef()
-  const animRefs = useRef(null)
-  const fenceAnim = useRef(null)
-
 
   console.log('lightFlareRef.current: ', lightFlareRef.current)
-  let envMap, setEnvMap, worldMap, setWorldMap
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
+  let envMap, worldMap
 
   const [envMapState, setEnvMapState] = useState(null);
   envMap = envMapState;
@@ -93,16 +35,6 @@ export default function Entrance() {
 
   worldMap = worldMapState
 
-<<<<<<< HEAD
-=======
-  const initTextNode = node => {
-    if (!node) return;
-    node.geometry.computeBoundingBox()
-    node.geometry.center()
-  }
-
-
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
   useEffect(() => {
 
     if (!canvasRef.current) return
@@ -133,16 +65,8 @@ export default function Entrance() {
 
     mixer.addEventListener('finished', () => router.push('/home'))
 
-<<<<<<< HEAD
-=======
     console.log('mixer: ', mixer)
 
-    // lightMixer.current = new THREE.AnimationMixer(lightRef.current)
-    // flash.current = lightMixer.current.clipAction(lamp.animations[0])
-    // flash.current.setLoop(THREE.LoopRepeat)
-    // flash.current.play()
-
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
   }, [mixer])
 
   const onFinished = () => router.push('/home')
@@ -151,28 +75,23 @@ export default function Entrance() {
     doubleDoorRef.current.open()
     camRef.current.play()
     console.log('cameRef.current: ', camRef.current)
-<<<<<<< HEAD
-    if(animRefs.current) {
+    if (animRefs.current) {
       console.log('animRefs.current: ', animRefs.current)
       for (const anim of animRefs.current) {
-=======
-    // lightFlareAction.current.play()
-    if(animRefs.current) {
-      console.log('animRefs.current: ', animRefs.current)
-      for (const anim of animRefs.current) {
-        // anim.paused = false
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
-        anim.clampWhenFinished = true
-        anim.setLoop(THREE.LoopOnce)
-        setTimeout(() => {
-          anim.startAt(0).reset().play()
-          fenceAnim.current.startAt(0).reset().play()
-        }, 3000)
+
+        if (animRefs.current) {
+          console.log('animRefs.current: ', animRefs.current)
+          for (const anim of animRefs.current) {
+
+            anim.clampWhenFinished = true
+            anim.setLoop(THREE.LoopOnce)
+            setTimeout(() => {
+              anim.startAt(0).reset().play()
+              fenceAnim.current.startAt(0).reset().play()
+            }, 3000)
+          }
+        }
       }
-<<<<<<< HEAD
-=======
-      // animRefs.current[0].reset().play()
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
     }
   }
 
@@ -180,16 +99,6 @@ export default function Entrance() {
     envMapState.mapping = THREE.CubeReflectionMapping;
     worldMapState.mapping = THREE.CubeRefractionMapping;
   }
-
-  const centreNode = node => {
-    if (!node) return;
-    node.geometry.computeBoundingBox()
-    node.geometry.center()
-  }
-<<<<<<< HEAD
->>>>>>> Stashed changes
-=======
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 
   return (
     <main className='flex min-h-screen flex-col items-center justify-between bg-black '>
@@ -212,7 +121,7 @@ export default function Entrance() {
           <Text position={vec3(9, 0, 0)} scale={0.7} initial={{ x: 0, y: 4, z: 5, rotateY: 13, rotateX: 0, originX: 0.5, originY: 0.5, originZ: 0 }} animate={{ x: 0, y: 2.4, z: 0, rotateY: 0, rotateX: 0, originX: 0.5, originY: 0.5, originZ: 0 }} transition={{ duration: 5 }} font='/Itai Protests_Regular.json' envMap={envMap} emissive={0xeebb00} attach='material-0' color={0xeebb00} shininess={100} refractionRatio={1} >
             DaleTristanHutchinson.com
           </Text>
-          <GLButton {...{ cubeMap: envMap }} position = {vec3(0, 1.2, 0)} onClick={onClick}>ENTER</GLButton>
+          <GLButton {...{ cubeMap: envMap }} position={vec3(0, 1.2, 0)} onClick={onClick}>ENTER</GLButton>
         </motion.group>
       </Canvas>
     </main>
