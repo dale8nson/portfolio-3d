@@ -48,3 +48,7 @@
   font-family: trattatello;
   src: url('/Trattatello.ttf');
 }
+
+p {
+  margin-bottom: 0.5rem;
+}
