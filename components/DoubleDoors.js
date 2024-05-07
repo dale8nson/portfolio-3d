@@ -21,12 +21,12 @@ export const DoubleDoors = forwardRef(function DoubleDoors({ color, position = v
   useEffect(() => {
     if (!leftDoor.current || !rightDoor.current) return
     leftDoorMixer.current = new THREE.AnimationMixer(leftDoor.current)
-    leftDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [-1.5, -3.25]), new THREE.NumberKeyframeTrack('.rotation[y]', [0, 6], [0, Math.PI * 0.8])])
+    leftDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [-2.5, -3.25])])
     leftDoorAction.current = leftDoorMixer.current.clipAction(leftDoorClip.current)
     leftDoorAction.current.setLoop(THREE.LoopOnce)
     leftDoorAction.current.clampWhenFinished = true
     rightDoorMixer.current = new THREE.AnimationMixer(rightDoor.current)
-    rightDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [1.5, 3.25]), new THREE.NumberKeyframeTrack('.rotation[y]', [0, 6], [0, -Math.PI * 0.8])])
+    rightDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [2.5, 3.25])])
     rightDoorAction.current = rightDoorMixer.current.clipAction(rightDoorClip.current)
     rightDoorAction.current.setLoop(THREE.LoopOnce)
     rightDoorAction.current.clampWhenFinished = true
@@ -45,11 +45,11 @@ export const DoubleDoors = forwardRef(function DoubleDoors({ color, position = v
 
   return (
     <motion.group ref={ref} {...{position, scale}}>
-      <motion.mesh position={vec3(-1.5, 0, 0)} scale={vec3(3, 8.5, 1)} ref={leftDoor}>
+      <motion.mesh position={vec3(-1.5, 0, 0)} scale={vec3(5.5, 8.5, 1)} ref={leftDoor}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial color={color} side={THREE.DoubleSide} />
       </motion.mesh>
-      <motion.mesh position={vec3(1.5, 0, 0)} scale={vec3(3, 8.5, 1)} ref={rightDoor}>
+      <motion.mesh position={vec3(1.5, 0, 0)} scale={vec3(5.5, 8.5, 1)} ref={rightDoor}>
         <planeGeometry args={[1, 1]} />
         <meshBasicMaterial color={color} side={THREE.DoubleSide} />
       </motion.mesh>

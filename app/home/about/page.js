@@ -1,19 +1,17 @@
 'use client'
 import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
-import { extend, useThree, useLoader } from '@react-three/fiber'
+import { extend, useThree, useLoader, Canvas } from '@react-three/fiber'
 import { Html, useGLTF, PerspectiveCamera, PointerLockControls, useTexture } from '@react-three/drei'
 import { vec3 } from '/lib/utils'
 import { HoverUI } from '/components/HoverUI'
-import { useRouter } from 'next/navigation'
 import Link from 'next/link'
+import { DrawingRoom } from '/components/DrawingRoom'
 
 extend([Html, PerspectiveCamera])
 
 export default function About() {
   const canvasRef = useRef(null)
-  const room = useGLTF('/the_great_drawing_room/scene.gltf')
-  console.log('room: ', room)
 
   const parchment = useLoader(THREE.TextureLoader, '/parchment.png')
 
@@ -30,12 +28,50 @@ export default function About() {
       <group position={vec3(0, 0, 0)} scale={vec3(1, 1, 1)}>
         <PerspectiveCamera makedefault position={vec3(0, 0, 40)} rotation={new THREE.Euler(0, 0, 0)} />
         <hemisphereLight />
-        <primitive object={room.scene} position={vec3(-1.2, -1, 3)} scale={vec3(.5, .5, .5)} rotation={new THREE.Euler(0, -Math.PI / 1.4, 0)} />
-        <HoverUI position={vec3(0, 0, 4.2)} scale={[0.25, .4, 1]} backgroundImage={parchment}>
-          <div className='flex-col flex-col md:w-2/12 w-[13rem] mx-auto h-[12rem] align-middle justify-items-start relative  md:top-[0rem]'>
-            <div className='flex-col  mx-auto align-middle justify-items-start overflow-y-scroll relative h-full  md:top-[0rem]'>
-              <h1 className=' text-center font-[trattatello] text-[#33331199]'>ABOVT</h1>
-              <p className='font-[trattatello] text-md'>lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia, molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis obcaecati tenetur iure eius earum ut molestias architecto voluptate aliquam nihil, eveniet aliquid culpa officia aut! Impedit sit sunt quaerat, odit, tenetur error, harum nesciunt ipsum debitis quas aliquid. Reprehenderit, quia. Quo neque error repudiandae fuga? Ipsa laudantium molestias eos sapiente officiis modi at sunt excepturi expedita sint? Sed quibusdam recusandae alias error harum maxime adipisci amet laborum. Perspiciatis minima nesciunt dolorem! Officiis iure rerum voluptates a cumque velit quibusdam sed amet tempora. Sit laborum ab, eius fugit doloribus tenetur fugiat, temporibus enim commodi iusto libero magni deleniti quod quam consequuntur! </p>
+        <DrawingRoom />
+        <HoverUI position={vec3(0, 0, 4)} scale={[0.35, .5, 1]} backgroundImage={parchment}>
+          <div className='flex-col md:w-2/12 w-[13rem] mx-auto h-[12rem] align-middle justify-items-start relative  md:top-[0rem]'>
+            <div className='flex-col  mx-auto px-4 align-middle justify-items-start overflow-y-scroll relative h-full  md:top-[0rem] font-sans font-sm leading-4 text-xs'>
+              <heading className='fixed -top-7 left-[47%]'><h1 className='text-center text-2xl font-[trattatello] text-[#33331199]'>ABOUT</h1></heading>
+              <p>Hello, and welcome to my website. This was my final project submission as part of a <strong>React</strong> short course with General Assembly, completed on April 18, 2024.</p><br/>
+              <p>
+                I've been slowly adding new features to it, but it is still very much under construction (hence my not-so-subtle hint on the landing page), so there are many things that are missing, as well as bugs. Please bare with me as I continue to work on it.
+              </p><br/>
+              <p>
+                Despite its many imperfections, I would like to highlight some of the technologies I have been incorporating (some for the first time) into this site.
+              </p><br/>
+              <div className='indent-0'>
+                <h1 className='font-bold font-[trattatello] text-xl'>Language</h1>
+                <p><strong>Javascript</strong> - for the course, the submissions had to be written in JS. However, I have been using <strong>Typescript</strong> in all my other projects. </p><br/>
+                <h1 className='font-bold text-xl font-[trattatello]'>Framework</h1>
+                <p>
+                  <strong>NextJS</strong> framework, using the new App router architecture.
+                </p><br/>
+                <p>I also used <strong>Gatsby</strong> for a few months before I switched to Next</p><br/>
+                <h1 className='font-bold text-xl font-[trattatello]'><strong>UI</strong></h1>
+                <p>Where I can, I am trying to use <strong>shadcn/ui</strong>, which is apparently what all the cool kids are using these days.  </p><br/>
+                <p>The menu on the home page uses shadcn (albeit stripped of all the default styling), as does the small data entry and table example. I'm hoping to create something more extended to showcase on this site in the near future. </p><br/>
+                <h1 className='font-bold text-xl font-[trattatello]'><strong>Style</strong></h1>
+                <p><strong>TailwindCSS</strong></p><br/>
+                <h1 className='font-bold text-xl font-[trattatello] '>3D</h1>
+                <p>
+                  <strong>ThreeJS, React Three Fiber, React Three Drei, Blender3D, GLTF, FBX</strong>
+                </p><br/>
+                <p>I have additionally written some simple shaders in <strong>GLSL</strong>, which will be demonstrated in other projects on this site in the near future.</p><br />
+                <p>I love 3D graphics and animations, and I am looking to learn more about this area and how I might be able to use them in future projects. I can see that vector and matrix maths, and 3D graphics algorithms, will be on my study agenda in the near future...  </p><br/>
+                <h1 className='font-bold text-xl font-[trattatello]' ><strong>Frontend</strong></h1>
+                <p>
+                <strong>React, TanStack Query</strong>
+                </p><br/>
+                <h1 className='font-bold text-xl font-[trattatello]'>Backend</h1>
+                <p>
+                  <strong>MongoDB, GraphQL, Apollo Server </strong>
+                </p><br/>
+                <p>I created my first GraphQL server in this project. It's a modest effort, but I recently started a project where I am creating a server that retrieves data from the ABS. Much trickier, but through it I am cutting my teeth and discovering what the routine coding patterns are for serving GraphQL queries.</p><br/>
+              </div><br/><br/>
+              <p>
+                I hope that you can see that I thrive on trying new technologies and opportunities to create, problem-solve, and acquire new knowledge and skills. In terms of applications, I'm eager to get my feet wet in all sorts of domains, whether they are for commerce, education, government, data science, or entertainment.
+              </p>
             </div>
             <div className='relative top-[2rem]'>
               <Link className='text-[#33331199] font-[trattatello] text-xl' href='/home'>BACK</Link>
