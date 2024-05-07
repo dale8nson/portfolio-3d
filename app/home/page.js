@@ -1,9 +1,5 @@
 'use client'
-<<<<<<< HEAD
 import { useEffect, useRef } from 'react'
-=======
-import { useEffect, useRef, useMemo } from 'react'
->>>>>>> 2a354330e169373ce427c20047f284b79f7e3f27
 import { Canvas } from '@react-three/fiber'
 import { useFBX } from '@react-three/drei'
 import { Button } from "@/components/ui/button"
