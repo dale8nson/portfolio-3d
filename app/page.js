@@ -63,7 +63,7 @@ export default function Entrance() {
   return (
     <main className='flex min-h-screen flex-col items-center justify-between bg-black '>
       <Suspense fallback={<h1 className='text-white'>LOADING...</h1>}>
-        <Canvas ref={onCanvasLoad} camera={{ manual: false }} dpr={1} className='border-2 border-[#ee0000] border-solid'>
+        <Canvas ref={onCanvasLoad} camera={{ manual: false }} dpr={1} >
           {/* <hemisphereLight intensity={1} /> */}
           <motion.group initial={{ rotateY: -1.5 }} animate={{ rotateY: 0 }} transition={{ duration: 24, repeatType: 'mirror', repeat: Infinity }}>
             <DoubleDoors color={0} ref={doubleDoorRef} position={vec3(0, 0, -3)} scale={1.2} />
