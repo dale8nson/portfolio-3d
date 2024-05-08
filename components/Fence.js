@@ -2,7 +2,7 @@
 import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import { useFrame } from '@react-three/fiber'
-import { useFBX } from '@react-three/drei'
+import { useFBX} from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 
 export const Fence = ({ position, animRef }) => {

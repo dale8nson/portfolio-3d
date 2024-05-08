@@ -1,7 +1,7 @@
 'use client'
 import { useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
-import { useFBX } from '@react-three/drei'
+import { useFBX, useGLTF } from '@react-three/drei'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
 import { ShowRoom2 } from '/components/ShowRoom2'
@@ -9,6 +9,7 @@ import { ShowRoom2 } from '/components/ShowRoom2'
 export default function Home() {
 
   useFBX.preload('/resume/resume2.fbx')
+  useGLTF.preload('/the_great_drawing_room/scene.gltf')
 
   const canvasRef = useRef(null)
 

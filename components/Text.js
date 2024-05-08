@@ -1,13 +1,15 @@
 'use client'
-import { useRef, useEffect, useState, forwardRef } from 'react';
+import { useEffect, forwardRef } from 'react';
 import * as THREE from 'three';
 import { useFrame } from '@react-three/fiber';
-import { Text3D } from '@react-three/drei';
+import { Text3D, useCubeTexture } from '@react-three/drei';
 import { motion } from 'framer-motion-3d';
 import { vec3 } from '@/lib/utils';
 
 
-export const Text = forwardRef(function Text({ children, initial, animate, transition, position = vec3(0, 0, 0), scale = vec3(1, 1, 1), font ='/Itai Protests_Regular.json', rotation = new THREE.Euler(0, 0, 0), color = 0xeebb00, shininess = 100, refractionRatio = 1, envMap = null, emissive = 0xeebb00 }, ref) {
+export const Text = forwardRef(function Text({ children, initial, animate, transition, position = vec3(0, 0, 0), scale = vec3(1, 1, 1), font ='/Itai Protests_Regular.json', rotation = new THREE.Euler(0, 0, 0), color = 0xeebb00, shininess = 100, refractionRatio = 1, emissive = 0xeebb00 }, ref) {
+
+  const envMap = useCubeTexture(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'], {path:'/'})
 
   const initTextNode = node => {
     if (!node) return;

@@ -3,14 +3,15 @@ import { useRef, useEffect } from 'react'
 import * as THREE from 'three'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js'
 import { useFrame } from '@react-three/fiber'
-import { useFBX, useGLTF } from '@react-three/drei'
+import { useFBX, useGLTF, useCubeTexture } from '@react-three/drei'
 
-
-export const Warning = ({envMap, animRefs, position}) => {
+export const Warning = ({ animRefs, position}) => {
 
   const warning = useFBX('/warning.fbx')
   console.log('warning: ', warning)
   warning.children[0].material.side = THREE.DoubleSide
+
+  const envMap = useCubeTexture(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'], {path:'/'})
 
   const warningRef = useRef(null)
   const warningMixer = useRef()
@@ -28,16 +29,6 @@ export const Warning = ({envMap, animRefs, position}) => {
 
   },[])
 
-  // useEffect(() => {
-  //   if(isPlaying) {
-  //     for(const anim of warningActions.current) {
-  //       anim.reset().play()
-  //     }
-      
-  //   }
-  // }, [isPlaying])
-
-
   useFrame((_, delta) => {
     if(warningMixer.current) warningMixer.current.update(delta)
   }) 
@@ -49,5 +40,4 @@ export const Warning = ({envMap, animRefs, position}) => {
       <pointLight position={[0.3, 0, 4]} color={0xFF6800} intensity={.3} decay={2} />
     </group>
   )
-
 }
