@@ -1,14 +1,10 @@
-'use client'
-import { extend } from '@react-three/fiber'
-import { Html } from '@react-three/drei'
-
-extend([Html])
-
 export default function Loading() {
   return (
-    <div className='w-screen h-screen' >
-      <video src="/5680034-hd_1920_1080_24fps.mp4" muted autoPlay={true} playsInline={true} controls={false} loop={true} />
-    </div>
-
+    <main className='w-screen h-screen absolute top-0 left-0 flex-col justify-items-center items-center bg-black'>
+      <div className='w-1/2 h-1/2 flex-col justify-items-center items-center m-[25%]'>
+        <h1 className='text-[#338833] text-3xl font-[retro] animate-pulse text-center '>PLEASE WAIT WHILE LOADING</h1>
+        <h2 className='text-[#338833] text-xl font-[retro] animate-pulse text-center'><small>Or your computer will self-destruct</small></h2>
+      </div>
+    </main>
   )
 }

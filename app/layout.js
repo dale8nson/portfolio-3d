@@ -1,4 +1,5 @@
 'use client'
+import { useGLTF } from '@react-three/drei'
 import { StoreProvider } from '@/lib/store'
 import './globals.css'
 
@@ -10,7 +11,8 @@ import {
 const queryClient = new QueryClient()
 
 export default function RootLayout({ children }) {
-
+  useGLTF.preload('/modern_themed_show_room_updated/scene.gltf')
+  useGLTF.preload('/free_-_skybox_space_nebula/scene.gltf')
 
   return (
     <html lang="en">

@@ -21,12 +21,12 @@ export const DoubleDoors = forwardRef(function DoubleDoors({ color, position = v
   useEffect(() => {
     if (!leftDoor.current || !rightDoor.current) return
     leftDoorMixer.current = new THREE.AnimationMixer(leftDoor.current)
-    leftDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [-2.5, -3.25])])
+    leftDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [-2.5, -9])])
     leftDoorAction.current = leftDoorMixer.current.clipAction(leftDoorClip.current)
     leftDoorAction.current.setLoop(THREE.LoopOnce)
     leftDoorAction.current.clampWhenFinished = true
     rightDoorMixer.current = new THREE.AnimationMixer(rightDoor.current)
-    rightDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [2.5, 3.25])])
+    rightDoorClip.current = new THREE.AnimationClip('', 6, [new THREE.NumberKeyframeTrack('.position[x]', [0, 6], [2.5, 9])])
     rightDoorAction.current = rightDoorMixer.current.clipAction(rightDoorClip.current)
     rightDoorAction.current.setLoop(THREE.LoopOnce)
     rightDoorAction.current.clampWhenFinished = true

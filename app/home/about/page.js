@@ -32,7 +32,7 @@ export default function About() {
           <div className='flex-col md:w-2/12 w-[13rem] mx-auto h-[12rem] align-middle justify-items-start relative  md:top-[0rem]'>
             <div className='flex-col  mx-auto px-4 align-middle justify-items-start overflow-y-scroll relative h-full  md:top-[0rem] font-sans font-sm leading-4 text-xs'>
               <div className='fixed -top-7 left-[47%]'><h1 className='text-center text-2xl font-[trattatello] text-[#33331199]'>ABOUT</h1></div>
-              <p>Hello, and welcome to my website. This was my final project submission as part of a <strong>React</strong> short course with General Assembly, completed on April 18, 2024.</p>
+              <p>Hello, and welcome to my website. This was my final project submission as part of a <strong>React</strong> short course with General Assembly, completed on April 18, 2024. It was created from scratch over a period of two weeks.</p>
               <p>
                 I've been slowly adding new features to it, but it is still very much under construction (hence my not-so-subtle hint on the landing page), so there are many things that are missing, as well as bugs. Please bare with me as I continue to work on it.
               </p>
