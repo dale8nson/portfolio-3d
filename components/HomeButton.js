@@ -32,13 +32,16 @@ export const HomeButton = ({ onClick, renderOrder, onPointerOver, onPointerOut, 
 
   const homeButton = useGLTF('/home-icon.glb')
   console.log('homeButton: ', homeButton)
-  const envMap = useCubeTexture(['sky.png', 'sky.png', 'sky.png', 'sky.png', 'sky.png', 'sky.png'], { path: '/' })
+  // const envMap = useCubeTexture(['sky.png', 'sky.png', 'sky.png', 'sky.png', 'sky.png', 'sky.png'], { path: '/' })
+
+  const envMap = useCubeTexture(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'], {path:'/'})
   envMap.anisotropy = 0
   envMap.wrapT = envMap.wrapS = THREE.RepeatWrapping
   envMap.mapping = THREE.CubeReflectionMapping
   const { material: mat } = homeButton.scene.children[0]
   mat.envMap = envMap
-  mat.refractionRatio = 0.1
+  mat.envMapIntensity = 1
+  mat.refractionRatio = 0.5
   mat.emissive = new THREE.Color(16, 16, 0)
   // mat.color = new THREE.Color(16, 16, 0)
 
@@ -46,7 +49,7 @@ export const HomeButton = ({ onClick, renderOrder, onPointerOver, onPointerOut, 
   // mat.specular = new THREE.Color(255, 227, 188)
   mat.specular = new THREE.Color(32, 32, 0)
   mat.reflectivity = 0.5
-  mat.shininess = 25
+  mat.shininess = 100
   mat.side = THREE.DoubleSide
 
   // useEffect(() => {
@@ -70,13 +73,13 @@ export const HomeButton = ({ onClick, renderOrder, onPointerOver, onPointerOut, 
   return (
     <>
       <motion.group position={position} renderOrder={50} onClick={onClick} onPointerOver={pointerOverHandler}
-        onPointerOut={pointerOutHandler} scale={[7.6, 7, -1]}>
-        <motion.group whileHover={{ z: 0.05 }} position={[0, 0, 0]} transition={{ duration: 0.25 }} >
-          <motion.primitive object={homeButton.scene}  position={[0, 0, 0]} envMap={envMap} visible
-          // children-0-material-wireframe
-          children-0-material-envMapIntensity={0.2} children-0-material-color={0xFFE3BC}
+        onPointerOut={pointerOutHandler} scale={[.1425, 0.125075, .1]}>
+        <motion.group whileHover={{ z: 0.125 }} position={[0, 0, 0]} transition={{ duration: 0.25 }}  >
+          <motion.primitive object={homeButton.scene} whileHover={{ scaleZ: 4 }} position={[0, 0, 0]} envMap={envMap} 
+            // children-0-material-wireframe
+            children-0-material-envMapIntensity={1} children-0-material-color={0xFFE3BC}
             children-0-material-metalness={1}
-            children-0-material-roughness={roughness}
+            children-0-material-roughness={0.4}
             // rotation={new THREE.Euler(0.035, -Math.PI / 100 * 20, 0.23)} renderOrder={0}
             // rotation={new THREE.Euler(0,-Math.PI / 16 * 4.25, Math.PI / 40 * 4)} renderOrder={0}
             rotation={[0, 0, 0]} renderOrder={0}
