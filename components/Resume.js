@@ -236,15 +236,11 @@ export const Resume = ({ children }) => {
           <primitive object={camera} position={[0, 0, 0]} />
           <HomeButton onClick={onClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut} position={[0.05, -0.025, -.5]} />
           <motion.group position={[cpx, cpy, -0.2]} initial={{ opacity: 1 }}
-            // style={{ opacity: pointerOpacity }}
             visible
             ref={cursorRef}
           >
             <motion.primitive object={pointer.scene}
-              // scale={[0.25, 0.25, 0.375]}
-              // scale={[4, 4, 6]}
               scale={[.0125, .0125, .016625]}
-
               rotation={new THREE.Euler(-Math.PI / 2, Math.PI / 2, Math.PI)} visible={true} ref={cursor} renderOrder={50}
             />
             <motion.directionalLight position={[-.3, 0, .1]} intensity={0.5} target={pointer.scene} />

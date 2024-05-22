@@ -4,11 +4,11 @@ import { Canvas } from '@react-three/fiber'
 import { useFBX, useGLTF } from '@react-three/drei'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
-import { ShowRoom2 } from '/components/ShowRoom2'
+import { ShowRoom } from '/components/ShowRoom'
 
 export default function Home() {
 
-  useGLTF.preload('/resume.gltf')
+  useFBX.preload('/resume.fbx')
   useGLTF.preload('/home-icon.glb')
   useGLTF.preload('/the_great_drawing_room/scene.gltf')
 
@@ -24,7 +24,7 @@ export default function Home() {
 
   return (
     <Canvas ref={canvasRef} className='h-screen'>
-      <ShowRoom2>
+      <ShowRoom>
         <main>
           <div className='mx-auto my-0 align-items-middle p-1 w-5/12 text-xs rounded-sm border border-solid border-[#338833] h-[17vh] font-[led] flex-col align-middle text-[#338833] bg-[#336633] backdrop-blur-sm bg-opacity-50 leading-2'>
             <h1 className='text-center'>WELCOME</h1>
@@ -42,7 +42,7 @@ export default function Home() {
             </Button>
           </div>
         </main>
-      </ShowRoom2>
+      </ShowRoom>
     </Canvas>
   )
 }
