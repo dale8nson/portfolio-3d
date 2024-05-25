@@ -170,12 +170,12 @@ export const ShowRoom = ({ debug, children }) => {
       </motion.group>
       <hemisphereLight />
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
-      <HoverUI name='menu' position={vec3(0, -.5, 3.5)} scale={.5} initial={{ y: 0.6 }} animate={{ y: 0.585 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} opacity={0} >
+      {/* <HoverUI name='menu' position={vec3(0, -.5, 3.5)} scale={.5} initial={{ y: 0.6 }} animate={{ y: 0.585 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} opacity={0} >
         {children}
-      </HoverUI>
-      {/* <motion.group initial={{ y: 0.75 }} animate={{ y: 0.73 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }}>
+      </HoverUI> */}
+      <motion.group initial={{ y: 0.75 }} animate={{ y: 0.73 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }}>
         <MainMenu onPointerOver={onPointerOver} onPointerOut={onPointerOut} />
-      </motion.group> */}
+      </motion.group>
       {/* <Terminal position={[1.2, 0.75, 2.68]} rotation={new THREE.Euler(0, Math.PI / 2, 0)}>
         <Text name='terminal' font='/nasalization-rg.otf' position={[0, 0.4, 0.6]} scale={0.08} color={0xff22ff} characters='DAVISULNTES'>
           DATA VISUALISATION
