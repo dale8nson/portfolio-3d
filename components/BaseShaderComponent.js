@@ -14,24 +14,24 @@ export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geo
 
   const shaderObj = new ShaderObj({ uniforms, fragmentShader, vertexShader })
 
-  console.log('shaderObj: ', shaderObj)
+  // console.log('shaderObj: ', shaderObj)
 
   useEffect(() => {
-    console.log(`BaseShaderComponent useEffect()`)
-    console.log(`componentRef.current: `, componentRef.current)
+    // console.log(`BaseShaderComponent useEffect()`)
+    // console.log(`componentRef.current: `, componentRef.current)
     if (!ref.current) return
     const node = ref.current
-    console.log(`shaderObj.uniforms: `, shaderObj.uniforms)
+    // console.log(`shaderObj.uniforms: `, shaderObj.uniforms)
     const shaderUniforms = shaderObj.uniforms
-    console.log(`shaderUniforms: `, shaderUniforms)
-    console.log(`Object.getOwnPropertyNames(node).some(name => Object.hasOwn(shaderUniforms, name): `, Object.getOwnPropertyNames(node).some(name => Object.hasOwn(shaderUniforms, name)))
+    // console.log(`shaderUniforms: `, shaderUniforms)
+    // console.log(`Object.getOwnPropertyNames(node).some(name => Object.hasOwn(shaderUniforms, name): `, Object.getOwnPropertyNames(node).some(name => Object.hasOwn(shaderUniforms, name)))
 
     if (Object.getOwnPropertyNames(node).some(name => Object.hasOwn(shaderUniforms, name))) return
 
-    console.log(`Object.keys(uniforms): `, Object.keys(uniforms))
+    // console.log(`Object.keys(uniforms): `, Object.keys(uniforms))
 
     for (const key of Object.keys(uniforms)) {
-      console.log(`key: `, key)
+      // console.log(`key: `, key)
 
       Object.defineProperty(node, key, {
         get() { return this.material.uniforms[key].value },
@@ -54,7 +54,7 @@ export const BaseShaderComponent = forwardRef(function BaseShaderComponent({ geo
       }
     }
 
-    console.log(`ref.current: `, ref.current)
+    // console.log(`ref.current: `, ref.current)
 
   }, [])
 

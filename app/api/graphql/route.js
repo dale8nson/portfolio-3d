@@ -9,10 +9,10 @@ const resolvers = {
     cases: async () => {
       const client = await clientPromise
       const db = client.db('vaccination-data')
-      console.log('db: ', db)
+      // console.log('db: ', db)
       const collection = db.collection('cases')
       const cases = collection.find() || []
-      console.log('cases: ', cases)
+      // console.log('cases: ', cases)
       const caseList = await  cases.toArray()
       return await caseList
     },
@@ -22,13 +22,13 @@ const resolvers = {
     //   const db = client.db('vaccination-data')
     //   const cases = db.collection('cases')
     //   const cse = cases.findOne({ date })
-    //   console.log('cse: ', cse)
+    //   // console.log('cse: ', cse)
     //   return cse
     // }
   },
   Mutation: {
     addCase: async (parent, args) => {
-      console.log(`args: `, args.case)
+      // console.log(`args: `, args.case)
       const client = await clientPromise
       const db = await client.db('vaccination-data')
       const cases = await db.collection('cases')
@@ -104,10 +104,10 @@ const server = new ApolloServer({
   typeDefs,
 })
 
-console.log(`server: `, server)
+// console.log(`server: `, server)
 
 const handler = startServerAndCreateNextHandler(server)
 
-console.log(`handler: `, handler)
+// console.log(`handler: `, handler)
 
 export { handler as GET, handler as POST }

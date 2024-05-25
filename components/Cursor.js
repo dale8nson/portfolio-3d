@@ -52,7 +52,7 @@ export const Cursor = ({ type='default', distance=0.2 }) => {
     
     // worldPosition.applyMatrix4(ref.current.matrixWorld)
 
-    console.log('worldPosition: ', worldPosition)
+    // console.log('worldPosition: ', worldPosition)
 
     const projectedWorldPosition = worldPosition.clone().project(camera)
     const mouse = new THREE.Vector3(screenX, screenY, 0)
@@ -77,7 +77,7 @@ export const Cursor = ({ type='default', distance=0.2 }) => {
           currentAction.current = point.current
           break
         default:
-          console.log('currentAction.current: ', currentAction.current)
+          // console.log('currentAction.current: ', currentAction.current)
           currentAction.current.setEffectiveTimeScale(-1)
           currentAction.current.play().paused = false
           // currentAction.current = null

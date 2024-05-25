@@ -31,8 +31,8 @@ export const Reveal = ({ selectedFilmId, localUrl, films }) => {
 
   const imgUrls = Object.fromEntries(films.map(film => [film.id, film.backdrop_path]))
 
-  console.log(`localUrl: `, localUrl)
-  console.log(`imgUrls: `, imgUrls)
+  // console.log(`localUrl: `, localUrl)
+  // console.log(`imgUrls: `, imgUrls)
 
 
   const rgbArrayToHex = (arr) => arr.map(col => col.toString(16).padStart(2, '0')).join('')
@@ -47,7 +47,7 @@ export const Reveal = ({ selectedFilmId, localUrl, films }) => {
     Object.fromEntries(films.map(film => {
       const url = `${localUrl}${imgUrls[film.id]}`
       const map = useLoader(THREE.TextureLoader, url)
-      console.log(`map: `, map)
+      // console.log(`map: `, map)
       map.WrapS = THREE.RepeatWrapping
       map.WrapT = THREE.RepeatWrapping
       return [film.id, map]
@@ -60,7 +60,7 @@ export const Reveal = ({ selectedFilmId, localUrl, films }) => {
 
   useEffect(() => {
 
-    console.log(`backdropRef.current: `, backdropRef.current)
+    // console.log(`backdropRef.current: `, backdropRef.current)
     const node = backdropRef.current
 
     if (Object.hasOwn(node, 'progress') || Object.hasOwn(node, 'map1') || Object.hasOwn(node, 'map2')) return
@@ -99,8 +99,8 @@ export const Reveal = ({ selectedFilmId, localUrl, films }) => {
     pixellateRef.current.clampWhenFinished = true
 
 
-    console.log(`backdropRef.current: `, backdropRef.current)
-    console.log(`node: `, node)
+    // console.log(`backdropRef.current: `, backdropRef.current)
+    // console.log(`node: `, node)
 
   }, [])
 
@@ -108,7 +108,7 @@ export const Reveal = ({ selectedFilmId, localUrl, films }) => {
   useEffect(() => {
 
     const node = meshRef.current
-    console.log(`meshRef.current: `, meshRef.current)
+    // console.log(`meshRef.current: `, meshRef.current)
 
     if (Object.hasOwn(node, 'map')) return
 
@@ -116,7 +116,7 @@ export const Reveal = ({ selectedFilmId, localUrl, films }) => {
       map: {
         get() { return this.material[0].uniforms.map.value },
         set(value) {
-          console.log(`this: `, this)
+          // console.log(`this: `, this)
           this.material[0].uniforms.map.value = value
           // this.material[1].uniforms.map.value = value
         }
