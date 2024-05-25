@@ -55,9 +55,9 @@ export default function Entrance() {
   const onClick = () => {
     doubleDoorRef.current.open()
     camRef.current.play()
-    console.log('cameRef.current: ', camRef.current)
+    // console.log('cameRef.current: ', camRef.current)
     if (animRefs.current) {
-      console.log('animRefs.current: ', animRefs.current)
+      // console.log('animRefs.current: ', animRefs.current)
       for (const anim of animRefs.current) {
         anim.clampWhenFinished = true
         setTimeout(() => {

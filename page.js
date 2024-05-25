@@ -77,7 +77,7 @@ export default function Graph() {
               : 1
       );
 
-      console.log("sorted cases: ", sortedCases);
+      // console.log("sorted cases: ", sortedCases);
 
       pop = sortedCases.map((c) => c.population);
     }
