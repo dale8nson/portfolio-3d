@@ -46,7 +46,7 @@ const FilmRow = ({ id, title, year, themeColor, secondaryThemeColor, poster_path
         <p>Released: {new Date(release_date).getFullYear()}</p>
         <div className={styles.actions}>
           <Button {...{
-            className: `hover:bg-[#ffff00] bg-transparent p-2 text-2xl rounded-[100%] ${favourite ? `bg-[#${themeColor || 'bbbbbb'}]` : ''}`,
+            className: `hover:text-[#ffff00] bg-transparent p-2 text-2xl rounded-[100%] ${favourite ? `bg-[#${themeColor || 'bbbbbb'}]` : ''}`,
             icon: 'star_rate',
             onClick: handleFavouritesClick,
             onMouseLeave: () => {
