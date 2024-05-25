@@ -165,7 +165,7 @@ export const ShowRoom = ({ debug, children }) => {
     <>
       <motion.group position={[0, 0.8, 5]}>
         <PerspectiveCamera makeDefault ref={cameraRef} />
-        {/* <Cursor distance={0.2} type={cursorType} /> */}
+        <Cursor distance={0.2} type={cursorType} />
       </motion.group>
       <hemisphereLight />
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
