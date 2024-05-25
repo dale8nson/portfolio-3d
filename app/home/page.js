@@ -8,7 +8,7 @@ import { ShowRoom } from '/components/ShowRoom'
 
 export default function Home() {
 
-  useFBX.preload('/resume.fbx')
+  useFBX.preload('/resume/resume3.fbx')
   useGLTF.preload('/home-icon.glb')
   useGLTF.preload('/the_great_drawing_room/scene.gltf')
 
@@ -25,7 +25,7 @@ export default function Home() {
   return (
     <Canvas ref={canvasRef} className='h-screen'>
       <ShowRoom>
-        <main>
+        {/* <main>
           <div className='mx-auto my-0 align-items-middle p-1 w-5/12 text-xs rounded-sm border border-solid border-[#338833] h-[17vh] font-[led] flex-col align-middle text-[#338833] bg-[#336633] backdrop-blur-sm bg-opacity-50 leading-2'>
             <h1 className='text-center'>WELCOME</h1>
             <Button className='bg-transparent h-2 mx-auto my-0 p-2 font-[nasalization] text-[#338833] hover:bg-[#33aa33] hover:bg-opacity-50 hover:text-[#33cc33] transition-color duration-500' >
@@ -41,7 +41,7 @@ export default function Home() {
               Contact
             </Button>
           </div>
-        </main>
+        </main> */}
       </ShowRoom>
     </Canvas>
   )

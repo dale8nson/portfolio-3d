@@ -22,7 +22,7 @@ export const Cursor = ({ type='default', distance=0.2 }) => {
 
   useEffect(() => {
     if (!cursor.current) return
-    gl.domElement.style.cursor = 'none'
+    // gl.domElement.style.cursor = 'none'
     mixer.current = new THREE.AnimationMixer(cursor.current)
     point.current = mixer.current.clipAction(pointer.animations[0])
     point.current.setLoop(THREE.LoopOnce)

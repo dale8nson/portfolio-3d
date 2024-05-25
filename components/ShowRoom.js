@@ -22,9 +22,11 @@ extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationCon
 
 export const ShowRoom = ({ debug, children }) => {
 
-  const { scene, camera } = useThree()
+  const { scene, camera, gl } = useThree()
   const router = useRouter()
   console.log('camera: ', camera)
+
+  console.log('gl.domElement: ', gl.domElement)
 
   const [cursorType, setCursorType] = useState('default')
   const colliderRef = useRef(null)
@@ -68,6 +70,7 @@ export const ShowRoom = ({ debug, children }) => {
     e.stopPropagation()
     console.log('onPointerOver')
     setCursorType('pointer')
+    controlsRef.current.unlock()
   }
 
   const onPointerOut = e => {
@@ -75,6 +78,7 @@ export const ShowRoom = ({ debug, children }) => {
 
     console.log('onPointerOut')
     setCursorType('default')
+    controlsRef.current.lock()
   }
 
   const speed = 2

@@ -1,7 +1,10 @@
+'use client'
 import { useRef, useEffect } from 'react'
-import { Button } from '/components/uikit/default/button'
+import { extend } from '@react-three/fiber'
 import { Root, Container, FontFamilyProvider, Text } from '@react-three/uikit'
 import { useRouter } from 'next/navigation'
+import { Button } from '/components/uikit/default/button'
+
 
 export const MainMenu = ({onClick: parentClickHandler, onPointerOver, onPointerOut}) => {
 
@@ -23,7 +26,7 @@ export const MainMenu = ({onClick: parentClickHandler, onPointerOver, onPointerO
   }
 
   const onProjectsClick = e => {
-    
+    router.push('/home/projects')
   }
 
   const onContactClick = e => { 
@@ -36,7 +39,7 @@ export const MainMenu = ({onClick: parentClickHandler, onPointerOver, onPointerO
     }}
     led={{ normal: '/The Led Display St-msdf/The Led Display St-msdf.json' }}
   >
-    <Root sizeX={0.45} sizeY={0.48}
+    <Root name='menu' sizeX={0.45} sizeY={0.48}
       transformTranslateZ={350}
       borderRadius={1}
       marginX={0} 
@@ -49,17 +52,17 @@ export const MainMenu = ({onClick: parentClickHandler, onPointerOver, onPointerO
         <Text color={0x338833} fontSize={6} fontFamily='led'>WELCOME</Text>
       </Container>
       <Container margin={0} backgroundOpacity={0} flexDirection='column' flexGrow={1} gapRow={-10} alignItems='flex-start' >
-        <Button variant='link' marginLeft={2} padding={0} onPointerOver={onPointerOver} onPointerOut={onPointerOut} onClick={onAboutClick}  >
-          <Text color={0x338833} hover={{color:0x33cc33}} fontSize={6} fontFamily='nasa' onClick={onAboutClick} >About</Text>
+        <Button variant='link' marginLeft={2} padding={0} onClick={onAboutClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut}   >
+          <Text color={0x338833} hover={{color:0x33cc33}} fontSize={6} fontFamily='nasa' >About</Text>
         </Button>
-        <Button variant='link' margin={2} padding={0} >
-          <Text color={0x338833} fontSize={6} fontFamily='nasa'>Resume</Text>
+        <Button variant='link' margin={2} padding={0} onClick={onResumeClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut} >
+          <Text color={0x338833} hover={{color:0x33cc33}} fontSize={6} fontFamily='nasa'>Resume</Text>
         </Button>
-        <Button variant='link' margin={2} padding={0} >
-          <Text color={0x338833} fontSize={6} fontFamily='nasa'>Projects</Text>
+        <Button variant='link' margin={2} padding={0} onClick={onProjectsClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut} >
+          <Text color={0x338833} hover={{color:0x33cc33}} fontSize={6} fontFamily='nasa'>Projects</Text>
         </Button>
-        <Button variant='link' margin={2} padding={0} >
-          <Text color={0x338833} fontSize={6} fontFamily='nasa'>Contact</Text>
+        <Button variant='link' margin={2} padding={0} onClick={onContactClick} onPointerOver={onPointerOver} onPointerOut={onPointerOut} >
+          <Text color={0x338833} hover={{color:0x33cc33}} fontSize={6} fontFamily='nasa'>Contact</Text>
         </Button>
       </Container>
     </Root>

@@ -256,8 +256,9 @@ export const Resume = ({ children }) => {
           <directionalLight position={[0.03, 0, .06]} color={0xffffff} intensity={2} target={resume} />
         </motion.group>
         {/* <motion.primitive object={pointer.scene} scale={[.00753125, -.00753125, .0075325]} position={[cpx, cpy, camera.position.z - 0.15]} rotation={new THREE.Euler(-Math.PI / 2, Math.PI / 2, Math.PI)} visible={true} ref={cursor} children-0-children-0-material-color={0xee0000} /> */}
-        {/* <PointerLockControls /> */}
+        
       {/* </motion.group> */}
+      {/* <PointerLockControls /> */}
     </>
   )
 }
