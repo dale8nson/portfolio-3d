@@ -196,7 +196,7 @@ export const Resume = ({ children }) => {
     // cpz.set(get().camera.position.z - 0.01)
     cpz.set(mouse.z)
 
-    if (cursor.current) // console.log(`cursorX: ${cursor.current.position.x}  cursorY: ${cursor.current.position.y} cursorZ: ${cursor.current.position.z}`)
+    //if (cursor.current) // console.log(`cursorX: ${cursor.current.position.x}  cursorY: ${cursor.current.position.y} cursorZ: ${cursor.current.position.z}`)
     // console.log(`cpx: ${cpx.get()}  cpy: ${cpy.get()} cpz: ${cpz.get()}`)
 
   }
