@@ -1,18 +1,19 @@
 'use client'
-import { useEffect, useRef, useMemo, useState } from 'react'
-import * as THREE from 'three'
-import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Canvas, useLoader, extend, useFrame, useThree, useGraph, } from '@react-three/fiber'
-
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
-import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
-import { HoverUI } from './HoverUI'
-import { BoxCollider } from './BoxCollider'
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Terminal } from '/components/Terminal'
+import { useEffect, useRef, useMemo, useState } from 'react'
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useTexture } from '@react-three/drei'
+import { useRouter } from 'next/navigation'
+import { vec3 } from '/lib/utils'
+import * as THREE from 'three'
+import Link from 'next/link'
+
+import { BoxCollider } from './BoxCollider'
+import { HoverUI } from './HoverUI'
+
 // import { Button, buttonVariants } from '/components/ui/button'
 import { GLButton2 } from '/components/GLButton2'
 import { Cursor } from '/components/Cursor'
@@ -165,7 +166,7 @@ export const ShowRoom = ({ debug, children }) => {
     <>
       <motion.group position={[0, 0.8, 5]}>
         <PerspectiveCamera makeDefault ref={cameraRef} />
-        <Cursor distance={0.2} type={cursorType} />
+        {/* <Cursor distance={0.2} type={cursorType} /> */}
       </motion.group>
       <hemisphereLight />
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
