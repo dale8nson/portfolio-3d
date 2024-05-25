@@ -5,7 +5,7 @@ import { useGLTF } from '@react-three/drei'
 import { useMotionValue } from 'framer-motion'
 import { motion } from 'framer-motion-3d'
 
-export const Cursor = ({ type='default' }) => {
+export const Cursor = ({ type='default', distance=0.2 }) => {
   const { gl, camera, viewport, get } = useThree()
   const pointer = useGLTF('/3d-cursor.glb')
 
@@ -22,7 +22,7 @@ export const Cursor = ({ type='default' }) => {
 
   useEffect(() => {
     if (!cursor.current) return
-    gl.domElement.style.cursor = 'none'
+    // gl.domElement.style.cursor = 'none'
     mixer.current = new THREE.AnimationMixer(cursor.current)
     point.current = mixer.current.clipAction(pointer.animations[0])
     point.current.setLoop(THREE.LoopOnce)
@@ -48,7 +48,7 @@ export const Cursor = ({ type='default' }) => {
     const cameraWorldPosition = new THREE.Vector3()
     camera.getWorldPosition(cameraWorldPosition)
 
-    const worldPosition = cameraWorldPosition.clone().add(cameraDirection.multiplyScalar(0.2))
+    const worldPosition = cameraWorldPosition.clone().add(cameraDirection.multiplyScalar(distance))
     
     // worldPosition.applyMatrix4(ref.current.matrixWorld)
 

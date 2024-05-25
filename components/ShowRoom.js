@@ -1,9 +1,10 @@
 'use client'
-import { useEffect, useRef, useMemo } from 'react'
+import { useEffect, useRef, useMemo, useState } from 'react'
 import * as THREE from 'three'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Canvas, useLoader, extend, useFrame, useThree, useGraph, } from '@react-three/fiber'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, Text, useTexture } from '@react-three/drei'
+
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useTexture } from '@react-three/drei'
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js'
 import { vec3 } from '/lib/utils'
 import { motion } from 'framer-motion-3d'
@@ -12,16 +13,20 @@ import { BoxCollider } from './BoxCollider'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { Terminal } from '/components/Terminal'
-import { Button, buttonVariants } from '/components/ui/button'
+// import { Button, buttonVariants } from '/components/ui/button'
 import { GLButton2 } from '/components/GLButton2'
+import { Cursor } from '/components/Cursor'
+import { MainMenu } from '/components/MainMenu'
 
-extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls, Text])
+extend([OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, CameraControls])
 
 export const ShowRoom = ({ debug, children }) => {
 
   const { scene, camera } = useThree()
   const router = useRouter()
   console.log('camera: ', camera)
+
+  const [cursorType, setCursorType] = useState('default')
   const colliderRef = useRef(null)
   const controlsRef = useRef(null)
   const lines = useRef([])
@@ -58,6 +63,19 @@ export const ShowRoom = ({ debug, children }) => {
   cubeMap.flipY = true
 
   console.log('cubeMap: ', cubeMap)
+
+  const onPointerOver = e => {
+    e.stopPropagation()
+    console.log('onPointerOver')
+    setCursorType('pointer')
+  }
+
+  const onPointerOut = e => {
+    e.stopPropagation()
+
+    console.log('onPointerOut')
+    setCursorType('default')
+  }
 
   const speed = 2
 
@@ -106,6 +124,7 @@ export const ShowRoom = ({ debug, children }) => {
     const backDirection = rayDirection.clone()
     backDirection.z *= -1
     backDirection.x *= -1
+    backDirection.y *= -1
     rc.set(rayOrigin, backDirection)
     objects = rc.intersectObjects(scene.children)
 
@@ -144,26 +163,32 @@ export const ShowRoom = ({ debug, children }) => {
 
   return (
     <>
-      <PerspectiveCamera makeDefault position={[0, 0.8, 5]} ref={cameraRef} />
+      <motion.group position={[0, 0.8, 5]}>
+        <PerspectiveCamera makeDefault ref={cameraRef} />
+        {/* <Cursor distance={0.2} type={cursorType} /> */}
+      </motion.group>
       <hemisphereLight />
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
       <HoverUI name='menu' position={vec3(0, -.5, 3.5)} scale={.5} initial={{ y: 0.6 }} animate={{ y: 0.585 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} opacity={0} >
         {children}
       </HoverUI>
-      <Terminal position={[1.2, 0.75, 2.68]} rotation={new THREE.Euler(0,Math.PI/2, 0)}>
+      {/* <motion.group initial={{ y: 0.75 }} animate={{ y: 0.73 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }}>
+        <MainMenu onPointerOver={onPointerOver} onPointerOut={onPointerOut} />
+      </motion.group> */}
+      {/* <Terminal position={[1.2, 0.75, 2.68]} rotation={new THREE.Euler(0, Math.PI / 2, 0)}>
         <Text name='terminal' font='/nasalization-rg.otf' position={[0, 0.4, 0.6]} scale={0.08} color={0xff22ff} characters='DAVISULNTES'>
           DATA VISUALISATION
         </Text>
         <group name='terminal' onClick={() => router.push('/data')}>
-        <Text font='/nasalization-rg.otf' position={[0, 0, 0.6]} scale={0.08} color={0xff00ff88} characters='VIST'>
-          VISIT
-        </Text>
-        <motion.mesh initial={{opacity:0}} whileHover={{opacity:0.7}} position={[0,0,0.1]} scale={[0.4,0.5,4]}>
-          <planeGeometry args={[1,1]} />
-          <meshBasicMaterial transparent color={0x0000aa} opacity={0}  />
-        </motion.mesh>
+          <Text font='/nasalization-rg.otf' position={[0, 0, 0.6]} scale={0.08} color={0xff00ff88} characters='VIST'>
+            VISIT
+          </Text>
+          <motion.mesh initial={{ opacity: 0 }} whileHover={{ opacity: 0.7 }} position={[0, 0, 0.1]} scale={[0.4, 0.5, 4]}>
+            <planeGeometry args={[1, 1]} />
+            <meshBasicMaterial transparent color={0x0000aa} opacity={0} />
+          </motion.mesh>
         </group>
-      </Terminal>
+      </Terminal> */}
       <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <motion.primitive object={GLTF.scene} scale={0.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <PointerLockControls ref={controlsRef} />
