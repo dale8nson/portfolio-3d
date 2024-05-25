@@ -5,7 +5,7 @@ import { motion } from 'framer-motion-3d'
 import { OBJLoader } from 'three/addons/loaders/OBJLoader.js';
 import { Terminal } from '/components/Terminal'
 import { useEffect, useRef, useMemo, useState } from 'react'
-import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useTexture } from '@react-three/drei'
+import { useGLTF, PerspectiveCamera, OrbitControls, FirstPersonControls, PointerLockControls, PresentationControls, KeyboardControls, useKeyboardControls, CameraControls, useCubeTexture, useTexture, useFBX } from '@react-three/drei'
 import { useRouter } from 'next/navigation'
 import { vec3 } from '/lib/utils'
 import * as THREE from 'three'
@@ -25,7 +25,7 @@ export const ShowRoom = ({ debug, children }) => {
 
   const { scene, camera } = useThree()
   const router = useRouter()
-  console.log('camera: ', camera)
+  // console.log('camera: ', camera)
 
   const [cursorType, setCursorType] = useState('default')
   const colliderRef = useRef(null)
@@ -40,7 +40,7 @@ export const ShowRoom = ({ debug, children }) => {
 
   const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 0.8), [])
 
-  console.log(`rc: `, rc)
+  // console.log(`rc: `, rc)
 
   const map = useTexture('/sh_bk.png')
   map.wrapS = map.wrapT = THREE.RepeatWrapping
@@ -51,6 +51,19 @@ export const ShowRoom = ({ debug, children }) => {
 
   const GLTF = useGLTF('/modern_themed_show_room_updated/scene.gltf')
   const nebula = useGLTF('/free_-_skybox_space_nebula/scene.gltf')
+  const projector = useFBX('/projector/uploads_files_2181451_projector3d_cgtrader.fbx')
+
+  // console.log('projector: ', projector)
+
+  // projector.children.forEach(child => {
+  //   if (child.material[0]) {
+  //     child.material[0].color = 0xee0000
+  //     child.material[0].wireframe = true
+  //   } else {
+  //     child.material.color = 0xee0000
+  //     child.material.wireframe = true
+  //   }
+  // });
 
   const forwardPressed = useKeyboardControls(state => state.forward)
   const backPressed = useKeyboardControls(state => state.back)
@@ -63,18 +76,18 @@ export const ShowRoom = ({ debug, children }) => {
   cubeMap.mapping = THREE.CubeRefractionMapping
   cubeMap.flipY = true
 
-  console.log('cubeMap: ', cubeMap)
+  // console.log('cubeMap: ', cubeMap)
 
   const onPointerOver = e => {
     e.stopPropagation()
-    console.log('onPointerOver')
+    // console.log('onPointerOver')
     setCursorType('pointer')
   }
 
   const onPointerOut = e => {
     e.stopPropagation()
 
-    console.log('onPointerOut')
+    // console.log('onPointerOut')
     setCursorType('default')
   }
 
@@ -82,7 +95,7 @@ export const ShowRoom = ({ debug, children }) => {
 
   useEffect(() => {
     if (!controlsRef.current) return
-    console.log('controlsRef.current: ', controlsRef.current)
+    // console.log('controlsRef.current: ', controlsRef.current)
 
   })
 
@@ -109,7 +122,7 @@ export const ShowRoom = ({ debug, children }) => {
     let objects = rc.intersectObjects(scene.children)
 
 
-    // if (objects.length) console.log('objects: ', objects)
+    // if (objects.length) // console.log('objects: ', objects)
     const menu = objects.find(child => child.object.name === 'menu' || child.object.name === 'terminal')
     if (menu) {
       controlsRef.current.unlock()
@@ -122,16 +135,17 @@ export const ShowRoom = ({ debug, children }) => {
       camera.position.z += wd.z * ds
 
     }
-    const backDirection = rayDirection.clone()
-    backDirection.z *= -1
-    backDirection.x *= -1
-    backDirection.y *= -1
+    const backDirection = rayDirection.clone().negate()
+    
+    // backDirection.z *= -1
+    // backDirection.x *= -1
+    // backDirection.y *= -1
     rc.set(rayOrigin, backDirection)
     objects = rc.intersectObjects(scene.children)
 
     if (backPressed && !objects.some(child => child.distance < 0.1)) {
-
       camera.position.x += wd.x * ds
+      camera.position.y += wd.y * ds
       camera.position.z += wd.z * ds
 
     }
@@ -169,6 +183,7 @@ export const ShowRoom = ({ debug, children }) => {
         {/* <Cursor distance={0.2} type={cursorType} /> */}
       </motion.group>
       <hemisphereLight />
+      <ambientLight />
       <BoxCollider ref={colliderRef} scale={vec3(6.75, 3, 6)} position={vec3(0, 1.5, 2.5)} />
       <HoverUI name='menu' position={vec3(0, -.5, 3.5)} scale={.5} initial={{ y: 0.6 }} animate={{ y: 0.585 }} transition={{ duration: 2, repeat: Infinity, repeatType: 'mirror' }} opacity={0} >
         {children}
@@ -190,6 +205,9 @@ export const ShowRoom = ({ debug, children }) => {
           </motion.mesh>
         </group>
       </Terminal> */}
+      <motion.group scale={10} position={[[1.2, 0.75, 2.68]]}>
+        <motion.primitive object={projector} scale={[1, 1, 1]} rotation={new THREE.Euler(Math.PI / 2, Math.PI / 2, Math.PI / 2)} />
+      </motion.group>
       <motion.primitive initial={{ rotateY: 0 }} animate={{ rotateY: 2 * Math.PI }} transition={{ duration: 50, repeat: Infinity, ease: 'linear' }} object={nebula.scene} scale={0.02} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <motion.primitive object={GLTF.scene} scale={0.008} position={vec3(0, 0, 3)} rotation={new THREE.Euler(0, 0, 0)} />
       <PointerLockControls ref={controlsRef} />

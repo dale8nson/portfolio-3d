@@ -11,7 +11,7 @@ export const MainMenu = ({onClick: parentClickHandler, onPointerOver, onPointerO
 
   useEffect(() => {
     if(!buttonRef.current) return
-    console.log('buttonRef.current: ', buttonRef.current)
+    // console.log('buttonRef.current: ', buttonRef.current)
   })
 
   const onAboutClick = e => {

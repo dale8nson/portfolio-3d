@@ -64,7 +64,7 @@ export const DataEntry2 = () => {
     }
   })
 
-  console.log('form: ', form)
+  // console.log('form: ', form)
   // eslint-disable-next-line quotes
   const query = gql`  
     query hello {
@@ -100,7 +100,7 @@ export const DataEntry2 = () => {
 
   const addCaseMutation = useMutation({
     mutationFn: async (data) => {
-      console.log(`mutationFn data: `, data)
+      // console.log(`mutationFn data: `, data)
       const { date, population, vaccinated, unvaccinated, deaths, vaccinatedDeaths, unvaccinatedDeaths } = data
       const { day, month, year } = data.date
 
@@ -127,7 +127,7 @@ export const DataEntry2 = () => {
 
   function onSubmit(values) {
 
-    console.log('values: ', values)
+    // console.log('values: ', values)
     const {date, population, vaccinated, unvaccinated, deaths, vaccinatedDeaths, unvaccinatedDeaths } = values
     const [day, month, year] = [date.getDate(), date.getMonth() + 1, date.getFullYear()]
 
@@ -149,14 +149,14 @@ export const DataEntry2 = () => {
 
     try {
       
-      addCaseMutation.mutate(variables.case, { onError:e => console.log(`error mutating: ${e.message}`), onSuccess: (m) => {
-        console.log(`success: `, m)
+      addCaseMutation.mutate(variables.case, { onError:e => // console.log(`error mutating: ${e.message}`), onSuccess: (m) => {
+        // console.log(`success: `, m)
         queryClient.invalidateQueries(['cases'])
         form.reset()
       }})
      
     } catch (e) {
-      console.log(`e: `, e)
+      // console.log(`e: `, e)
     }
 
   }

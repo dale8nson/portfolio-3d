@@ -8,7 +8,8 @@ import { ShowRoom } from '/components/ShowRoom'
 
 export default function Home() {
 
-  useFBX.preload('/resume.fbx')
+  useFBX.preload('/resume/resume3.fbx')
+  useFBX.preload('/projector/uploads_files_2181451_projector3d_cgtrader.fbx')
   useGLTF.preload('/home-icon.glb')
   useGLTF.preload('/the_great_drawing_room/scene.gltf')
 

@@ -17,7 +17,7 @@ export const HomeButton = ({ onClick, renderOrder, onPointerOver, onPointerOut, 
   // router.prefetch('/home')
   const { camera, gl, scene, get } = useThree()
   const { x, y, z } = camera.position
-  console.log('scene: ', scene)
+  // console.log('scene: ', scene)
   const [cursorVisible, setCursorVisible] = useState(false)
 
   const intensity = motionValue(2)
@@ -31,7 +31,7 @@ export const HomeButton = ({ onClick, renderOrder, onPointerOver, onPointerOut, 
   const rootRef = useRef(null)
 
   const homeButton = useGLTF('/home-icon.glb')
-  console.log('homeButton: ', homeButton)
+  // console.log('homeButton: ', homeButton)
   // const envMap = useCubeTexture(['sky.png', 'sky.png', 'sky.png', 'sky.png', 'sky.png', 'sky.png'], { path: '/' })
 
   const envMap = useCubeTexture(['sh_rt.png', 'sh_lf.png', 'sh_up.png', 'sh_dn.png', 'sh_bk.png', 'sh_ft.png'], {path:'/'})
@@ -60,7 +60,7 @@ export const HomeButton = ({ onClick, renderOrder, onPointerOver, onPointerOut, 
 
   const pointerOverHandler = e => {
     {
-      console.log('pointer over: ', e)
+      // console.log('pointer over: ', e)
       if (onPointerOver) onPointerOver(e)
     }
   }

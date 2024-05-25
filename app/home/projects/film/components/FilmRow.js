@@ -13,7 +13,7 @@ const FilmRow = ({ id, title, year, themeColor, secondaryThemeColor, poster_path
   const previousThemeColor = useRef(null)
 
   const handleFavouritesClick = () => {
-    console.log(`handleFavouritesClick id: ${id}`)
+    // console.log(`handleFavouritesClick id: ${id}`)
     if (favourite) {
       removeFromFavourites(id)
       favRef.current.classList.remove(`text-[#ffff00]`)

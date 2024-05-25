@@ -132,14 +132,14 @@ export const DataEntry = () => {
 
     try {
       
-      addCaseMutation.mutate(variables.case, { onError:e => console.log(`error mutating: ${e.message}`), onSuccess: (m) => {
-        console.log(`success: `, m)
+      addCaseMutation.mutate(variables.case, { onError:e => // console.log(`error mutating: ${e.message}`), onSuccess: (m) => {
+        // console.log(`success: `, m)
         queryClient.invalidateQueries(['cases'])
         form.reset()
       }})
      
     } catch (e) {
-      console.log(`e: `, e)
+      // console.log(`e: `, e)
     }
   }
 

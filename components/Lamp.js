@@ -16,10 +16,10 @@ export const Lamp = ({position}) => {
     action.current.setLoop(THREE.LoopRepeat)
     action.current.repetitions = Infinity
     // action.current.setDuration(10)
-    console.log('action.current: ', action.current)
+    // console.log('action.current: ', action.current)
     action.current.play()
-    console.log('ref.current: ', ref.current)
-    mixer.current.addEventListener('finished', () => console.log('lamp animation finished'))
+    // console.log('ref.current: ', ref.current)
+    mixer.current.addEventListener('finished', () => // console.log('lamp animation finished'))
   })
  
   useFrame((_, delta) => {

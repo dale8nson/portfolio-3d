@@ -4,7 +4,7 @@ import styles from './FilmDetail.module.css'
 
 const FilmDetail = ({ id, title, themeColor, titleColor, overview, poster_path, selectedFilmId }) => {
 
-  console.log(`fiilm id: ${id}`)
+  // console.log(`fiilm id: ${id}`)
 
   const posterRef = useRef(null)
   const overviewRef = useRef(null)
@@ -16,7 +16,7 @@ const FilmDetail = ({ id, title, themeColor, titleColor, overview, poster_path, 
 
   const textColor = '#' + titleColor.map(col => col.toString(16).padStart(2, '0')).join('')
 
-  console.log(`titleColor: `, titleColor, `textColor: ${textColor}`)
+  // console.log(`titleColor: `, titleColor, `textColor: ${textColor}`)
 
 
 
