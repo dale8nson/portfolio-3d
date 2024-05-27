@@ -38,7 +38,7 @@ export const ShowRoom = ({ debug, children }) => {
   camera.getWorldPosition(wp)
   camera.getWorldDirection(wd)
 
-  const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 0.8), [])
+  const rc = useMemo(() => new THREE.Raycaster(wp, wd, 0, 1), [])
 
   // console.log(`rc: `, rc)
 
@@ -52,6 +52,37 @@ export const ShowRoom = ({ debug, children }) => {
   const GLTF = useGLTF('/modern_themed_show_room_updated/scene.gltf')
   const nebula = useGLTF('/free_-_skybox_space_nebula/scene.gltf')
   const projector = useFBX('/projector/uploads_files_2181451_projector3d_cgtrader.fbx')
+
+  // console.log('GLTF.scene: ', GLTF.scene)
+  const findChildLeaves = (child, arr = []) => {
+    if (child.children.length === 0) {
+      arr.push(child)
+      // console.log('arr: ', arr)
+      return [...arr]
+    }
+    const { children } = child
+    for (const child of children) {
+      return findChildLeaves(child, arr)
+    }
+  }
+
+  const leaves = findChildLeaves(GLTF.scene)
+  // console.log('leaves: ', leaves)
+  for (const leaf of leaves) {
+    const { material } = leaf
+    // console.log('material: ', material)
+    if (Object.hasOwn(material, 'forEach')) {
+      material.forEach(material => {
+        material.color = 0xee0000
+        material.wireframe = true
+      })
+    }
+    else {
+      material.color = 0xee0000
+      material.wireframe = true
+    }
+  }
+
 
   // console.log('projector: ', projector)
 
@@ -121,7 +152,6 @@ export const ShowRoom = ({ debug, children }) => {
     // let objects = rc.intersectObject(colliderRef.current)
     let objects = rc.intersectObjects(scene.children)
 
-
     // if (objects.length) // console.log('objects: ', objects)
     const menu = objects.find(child => child.object.name === 'menu' || child.object.name === 'terminal')
     if (menu) {
@@ -131,31 +161,31 @@ export const ShowRoom = ({ debug, children }) => {
 
     if (forwardPressed && !objects.some(child => child.distance < 0.1)) {
 
-      camera.position.x += wd.x * ds
-      camera.position.z += wd.z * ds
-
+      camera.position.x += rayDirection.x * ds
+      camera.position.z += rayDirection.z * ds
     }
     const backDirection = rayDirection.clone().negate()
-    
-    // backDirection.z *= -1
-    // backDirection.x *= -1
-    // backDirection.y *= -1
+    // rayOrigin.z -= 0.2
     rc.set(rayOrigin, backDirection)
     objects = rc.intersectObjects(scene.children)
+    objects.push(...rc.intersectObjects(colliderRef.current))
+    // if(objects.length) console.log('objects behind: ', objects)
 
-    if (backPressed && !objects.some(child => child.distance < 0.1)) {
-      camera.position.x += wd.x * ds
-      camera.position.y += wd.y * ds
-      camera.position.z += wd.z * ds
-
+    if (backPressed && !objects.some(child => child.distance < 1)) {
+      // console.log('backDirection: ', backDirection)
+      camera.position.x += backDirection.x * ds
+      camera.position.z += backDirection.z * ds
     }
 
     const leftDirection = new THREE.Vector3().crossVectors(rayDirection, vec3(0, 1, 0))
     rayOrigin.x -= 0.2
+    rayOrigin.z += 0.2
     rc.set(rayOrigin, leftDirection)
     // lines.current.push(new Float32Array([...rayOrigin.toArray(), ...rayOrigin.add(leftDirection).addScalar(0.1).toArray()]))
-    // objects = rc.intersectObject(colliderRef.current)
+    objects = rc.intersectObject(colliderRef.current)
     objects = rc.intersectObjects(scene.children)
+
+    // console.log('objects behind: ', objects)
 
 
     if (leftPressed && !objects.some(child => child.distance < 0.1)) {
