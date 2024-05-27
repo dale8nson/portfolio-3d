@@ -66,6 +66,7 @@ export default function Entrance() {
       }
       for (const anim of fenceAnims.current)
         setTimeout(() => {
+          anim.clampWhenFinished = true
           anim.startAt(0).reset().play()
         }, 3000)
     }
