@@ -2,8 +2,11 @@
 import { useRef, useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Canvas } from '@react-three/fiber'
+import { useFBX } from '@react-three/drei'
 import { HomeButton } from '/components/HomeButton'
 import { Resume } from '/components/Resume'
+
+useFBX.preload('/resume/resume3.fbx')
 
 export default function Page() {
   const router = useRouter()
@@ -14,8 +17,6 @@ export default function Page() {
   const [onPointerOut, setOnPointerOut] = useState(null)
   const [onPointerOver, setOnPointerOver] = useState(null)
 
-  
-
   useEffect(() => {
 
     if (!canvasRef.current) return
@@ -23,7 +24,6 @@ export default function Page() {
 
     canvasRef.current.style.width = `${outerWidth}px`
     canvasRef.current.style.height = `${outerHeight}px`
-
   })
 
   return (
