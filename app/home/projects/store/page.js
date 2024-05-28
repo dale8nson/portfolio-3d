@@ -38,7 +38,7 @@ export default function Home() {
 
   return (
       <main className={`absolute top-0 left-0 w-full h-[100vh] `} ref={initRef}>
-        <div className='bg-[url("../public/pexels-artem-podrez-7232406(b&w).jpg")] bg-cover w-full h-[100vh] bg-no-repeat bg-center bg-fixed'>
+        <div className='bg-[url("/pexels-artem-podrez-7232406(b&w).jpg")] bg-cover w-full h-[100vh] bg-no-repeat bg-center bg-fixed'>
           <div className='fixed flex-col top-0 left-0 z-30' >
             <Header setSideMenuOpen={setSideMenuOpen} sideMenuOpen={sideMenuOpen}/>
             <SideMenu className='relative top-[5rem] h-[100vh]' items={['ALL', 'JACKETS', 'SHIRTS', 'PANTS', 'SKIRTS']} open={sideMenuOpen} />

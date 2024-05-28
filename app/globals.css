@@ -40,7 +40,6 @@
   src: url('/venus\ rising\ rg.otf');
 }
 
-
 @font-face {
   font-family: retro;
   src: url('/Retro Gaming.ttf');
@@ -143,4 +142,29 @@ p {
 @font-face {
   font-family: accountant;
   src: url('../public/aAccountantSignature.ttf');
+}
+
+@font-face {
+  font-family: led-board;
+  src: url('../public/LEDBDREV.TTF');
+}
+
+
+.border-brushed-metal {
+  border-image: url('../public/reflective-brushed-metal-foil-texture-free.jpg') 20%;
+}
+
+.bg-brushed-metal {
+  background-image: url('../public/reflective-brushed-metal-foil-texture-free.jpg');
+  background-size: 100%;
+}
+
+.bg-chrome {
+  background-image: url('../public/reflective-metal-foil-texture-free.jpg');
+  background-size: 200%;
+  background-position-x: 70%;
+}
+
+.border-chrome {
+  border-image: url('../public/reflective-metal-foil-texture-free.jpg') 25%;
 }

@@ -1,0 +1,28 @@
+/* @tailwind base;
+@tailwind components;
+@tailwind utilities; */
+
+@font-face {
+  font-family: 'HoltwoodOneSC-Regular';
+  src: url('/HoltwoodOneSC-Regular.ttf');
+}
+
+:root {
+  font-size: 12px;
+  margin:0;
+  background-color: black;
+}
+
+
+html, body {
+  margin:0;
+}
+
+h1 {
+  font-family: 'HoltwoodOneSC-Regular';
+}
+
+
+svg {
+  mask-type:alpha;
+}
