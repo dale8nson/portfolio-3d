@@ -89,7 +89,7 @@ export const DataTable2 = () => {
     queryFn: async () => request('/api/graphql', query)
   })
 
-  console.log('DataTable graphql query data: ', data?.cases)
+  // console.log('DataTable graphql query data: ', data?.cases)
 
   let cases
   let formattedCases = []

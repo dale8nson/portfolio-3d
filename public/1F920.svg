@@ -1,0 +1,15 @@
+<svg id="emoji" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+<g id="smiley">
+  <g id="color">
+    <circle cx="36" cy="38" r="24" fill="#FCEA2B"/>
+  </g>
+  <g id="hair"/>
+  <g id="skin"/>
+  <g id="skin-shadow"/>
+  <g id="line">
+    
+    <path fill="none" stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-width="2" d="M58.4382,32.925C58.8059,34.5577,59,36.2562,59,38c0,12.7025-10.2975,23-23,23S13,50.7025,13,38 c0-1.7438,0.1941-3.4423,0.5618-5.075"/>
+  </g>
+</g>
+  
+</svg>

@@ -26,7 +26,7 @@ function FilmLibrary({ localUrl }) {
 
   const [secondaryThemeColor, setSecondaryThemeColor] = useState(selectedFilmId ? rgbArrayToHex(secondaryColors?.[selectedFilmId]) : null)
 
-  console.log(`secondaryThemeColor: `, secondaryThemeColor)
+  // console.log(`secondaryThemeColor: `, secondaryThemeColor)
 
   const filmDetailRefs = useRef({})
   const [firstFilmSelected, setFirstFilmSelected] = useState(false)
@@ -72,7 +72,7 @@ function FilmLibrary({ localUrl }) {
     // filmDetailRefs.current[id].classList.replace(styles.hidden, styles.visible)
     // filmDetailRefs.current[selectedFilmId]?.classList.replace(styles.visible, styles.hidden)
 
-    console.log(`selectedFilmId: `, selectedFilmId)
+    // console.log(`selectedFilmId: `, selectedFilmId)
 
   }
 
@@ -84,7 +84,7 @@ function FilmLibrary({ localUrl }) {
   useEffect(() => {
 
     const newThemeColor = selectedFilmId ? rgbArrayToHex(titleColors?.[selectedFilmId]) : null
-    console.log(`new theme color: ${newThemeColor}`)
+    // console.log(`new theme color: ${newThemeColor}`)
     setThemeColor(newThemeColor)
     setSecondaryThemeColor(selectedFilmId ? rgbArrayToHex(secondaryColors?.[selectedFilmId]) : null)
   }, [selectedFilmId, selectedTab, favourites])

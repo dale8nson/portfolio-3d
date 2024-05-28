@@ -55,17 +55,19 @@ export default function Entrance() {
   const onClick = () => {
     doubleDoorRef.current.open()
     camRef.current.play()
-    console.log('cameRef.current: ', camRef.current)
+    // console.log('cameRef.current: ', camRef.current)
     if (animRefs.current) {
-      console.log('animRefs.current: ', animRefs.current)
+      // console.log('animRefs.current: ', animRefs.current)
       for (const anim of animRefs.current) {
         anim.clampWhenFinished = true
+        anim.setLoop(THREE.LoopOnce)
         setTimeout(() => {
           anim.startAt(0).reset().play()
         }, 3000)
       }
       for (const anim of fenceAnims.current)
         setTimeout(() => {
+          anim.clampWhenFinished = true
           anim.startAt(0).reset().play()
         }, 3000)
     }

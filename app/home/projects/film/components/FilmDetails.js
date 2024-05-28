@@ -18,7 +18,7 @@ const FilmDetails = forwardRef(function FilmDetails({ films, className, visible,
 
   }, [])
 
-  console.log(`films: `, films)
+  // console.log(`films: `, films)
   const titleColors = Object.fromEntries(films.map(film => [film.id, film.titleColor]))
 
   let titleColor = null, textColor = null

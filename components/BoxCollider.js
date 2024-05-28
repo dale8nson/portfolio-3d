@@ -8,7 +8,7 @@ export const BoxCollider = forwardRef(function BoxCollider({ name = "", scale = 
 
   return (
     <mesh ref={ref} {...{ name, position, scale, rotation, }} >
-      <boxGeometry args={[1, 1, 1, 10, 10]} />
+      <boxGeometry args={[1, 1, 1, 20, 20]} />
       <meshBasicMaterial color={0xee0000} side={THREE.DoubleSide} wireframe transparent opacity={debug ? 1 : 0} />
     </mesh>
   )

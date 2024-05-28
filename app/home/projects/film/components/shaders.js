@@ -39,7 +39,7 @@ export const reveal = ({ titleColor = [1, 1, 1] }) => {
     vertexShader,
     fragmentShader
   }
-  console.log(`mat: `, mat)
+  // console.log(`mat: `, mat)
   return mat
 }
 

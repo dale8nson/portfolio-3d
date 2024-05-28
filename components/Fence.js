@@ -9,7 +9,7 @@ export const Fence = ({ position, animRefs }) => {
 
   // const fenceObj = useLoader(GLTFLoader, '/fence/fence.gltf')
   const fenceObj = useGLTF('/fence/fence.glb')
-  console.log('fenceObj: ', fenceObj)
+  // console.log('fenceObj: ', fenceObj)
   const mixer = useRef()
   const actions = useRef([])
   const ref = useRef(null)

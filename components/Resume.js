@@ -11,7 +11,7 @@ extend([OrbitControls, PointerLockControls, OrthographicCamera])
 
 export const Resume = ({ children }) => {
   const { camera, gl, get } = useThree()
-  console.log('viewport: ', get().viewport)
+  // console.log('viewport: ', get().viewport)
   camera.position.set(0, 0, 0)
   gl.domElement.style.cursor = 'none'
   const router = useRouter()
@@ -25,8 +25,8 @@ export const Resume = ({ children }) => {
   const [onPointerOut, setOnPointerOut] = useState(null)
   const [onPointerOver, setOnPointerOver] = useState(null)
 
-  console.log('onPointerOver: ', onPointerOver)
-  console.log('resume: ', resume)
+  // console.log('onPointerOver: ', onPointerOver)
+  // console.log('resume: ', resume)
 
   camera.fov = 8
 
@@ -71,7 +71,7 @@ export const Resume = ({ children }) => {
     }
 
     mixer.current.addEventListener('finished', () => {
-      console.log('animation finished')
+      // console.log('animation finished')
 
       // animate(z, 0, {duration:1.5, ease:'easeInOut'})
       // z.set(0)
@@ -90,15 +90,15 @@ export const Resume = ({ children }) => {
       for (const action of unscrumple.current) action.reset().play()
     }, 1200)
 
-    console.log('resumeRef.current:', resumeRef.current)
-    console.log('unscrumple.current: ', unscrumple.current)
+    // console.log('resumeRef.current:', resumeRef.current)
+    // console.log('unscrumple.current: ', unscrumple.current)
 
   })
 
   gl.domElement.addEventListener('wheel', (e) => {
     e.preventDefault()
-    console.log('mouse event: ', e)
-    console.log(`x: ${x.get()}  y: ${y.get()}`)
+    // console.log('mouse event: ', e)
+    // console.log(`x: ${x.get()}  y: ${y.get()}`)
 
     if (e.deltaY > 0) {  
       y.set(THREE.MathUtils.clamp(y.get() - 0.1, -19.5, 17))
@@ -122,7 +122,7 @@ export const Resume = ({ children }) => {
       x.set(THREE.MathUtils.clamp(x.get() - 0.1, -8.8, 10.6))
       // cpx.set(cpx.get() - 0.08)
     }
-    console.log(`x: ${x.get()}  y: ${y.get()} z: ${z.get()}`)
+    // console.log(`x: ${x.get()}  y: ${y.get()} z: ${z.get()}`)
 
   })
 
@@ -130,10 +130,10 @@ export const Resume = ({ children }) => {
 
   useEffect(() => {
     if (!cursor.current) return
-    console.log('pointer: ', pointer)
+    // console.log('pointer: ', pointer)
     cursorMixer.current = new THREE.AnimationMixer(cursor.current)
-    console.log('cursorMixer.current: ', cursorMixer.current)
-    console.log(`pointer.animations:`, pointer.animations)
+    // console.log('cursorMixer.current: ', cursorMixer.current)
+    // console.log(`pointer.animations:`, pointer.animations)
     point.current = cursorMixer.current.clipAction(pointer.animations[0])
     point.current.setLoop(THREE.LoopOnce)
     point.current.clampWhenFinished = true
@@ -143,13 +143,13 @@ export const Resume = ({ children }) => {
   }, [])
 
   const pointerOverHandler = () => e => {
-    console.log('pointerOver')
+    // console.log('pointerOver')
     point.current.setEffectiveTimeScale(1)
     point.current.reset().play().paused = false
   }
 
   const pointerOutHandler = () => e => {
-    console.log('pointerOut')
+    // console.log('pointerOut')
     point.current.setEffectiveTimeScale(-1)
     point.current.play().paused = false
   }
@@ -165,18 +165,18 @@ export const Resume = ({ children }) => {
 
   const updatePointer = e => {
     if(!cursorRef.current) return
-    console.log('cursorRef.current: ', cursorRef.current)
+    // console.log('cursorRef.current: ', cursorRef.current)
     if (e.preventDefault) e.preventDefault()
     camera.updateProjectionMatrix()
-    console.log('camera.position: ', camera.position)
+    // console.log('camera.position: ', camera.position)
 
-    console.log('mousemove: ', e)
+    // console.log('mousemove: ', e)
     gl.getSize(sz)
-    console.log('sz: ', sz)
+    // console.log('sz: ', sz)
     const { clientX, clientY } = e
     const screenX = ((clientX) / sz.x) * 2 - 1
     const screenY = -((clientY) / sz.y) * 2 + 1
-    console.log(`screenX: ${screenX}  screenY: ${screenY}`)
+    // console.log(`screenX: ${screenX}  screenY: ${screenY}`)
     // const normalizedZ = new THREE.Vector3(screenX, screenY, z.get() / 300).project(camera).z
 
     // console.log(`normalizedZ: ${normalizedZ}`)
@@ -188,16 +188,16 @@ export const Resume = ({ children }) => {
     // animate(cpy, pos.y, { duration: 0.01 })
     // animate(cpz, camera.position.z + cursorZ, { duration: 0.01 })
     const cameraWorldPosition = new THREE.Vector3().setFromMatrixPosition(cursorRef.current.parent.matrixWorld)
-    console.log('cameraWorldPosition: ', cameraWorldPosition)
-    console.log('mouse world position: ', mouse)
+    // console.log('cameraWorldPosition: ', cameraWorldPosition)
+    // console.log('mouse world position: ', mouse)
     mouse.sub(cameraWorldPosition)
     cpx.set(mouse.x + 0.0005)
     cpy.set(mouse.y - 0.0008)
     // cpz.set(get().camera.position.z - 0.01)
     cpz.set(mouse.z)
 
-    if (cursor.current) console.log(`cursorX: ${cursor.current.position.x}  cursorY: ${cursor.current.position.y} cursorZ: ${cursor.current.position.z}`)
-    console.log(`cpx: ${cpx.get()}  cpy: ${cpy.get()} cpz: ${cpz.get()}`)
+    //if (cursor.current) // console.log(`cursorX: ${cursor.current.position.x}  cursorY: ${cursor.current.position.y} cursorZ: ${cursor.current.position.z}`)
+    // console.log(`cpx: ${cpx.get()}  cpy: ${cpy.get()} cpz: ${cpz.get()}`)
 
   }
 

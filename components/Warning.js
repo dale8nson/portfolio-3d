@@ -8,7 +8,7 @@ import { useFBX, useGLTF, useCubeTexture } from '@react-three/drei'
 export const Warning = ({ animRefs, position}) => {
 
   const warning = useGLTF('/warning.gltf')
-  console.log('warning: ', warning)
+  // console.log('warning: ', warning)
   for (const child of warning.scene.children) {
     if(child.isMesh)
       child.material.side = THREE.DoubleSide
@@ -24,7 +24,7 @@ export const Warning = ({ animRefs, position}) => {
   useEffect(() => {
     if(!warningRef.current) return
     warningMixer.current = new THREE.AnimationMixer(warningRef.current)
-    console.log('warningRef.current: ', warningRef.current)
+    // console.log('warningRef.current: ', warningRef.current)
     for (const anim of warning.animations) {
       warningActions.current.push(warningMixer.current.clipAction(anim))
     }

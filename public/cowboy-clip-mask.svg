@@ -1,0 +1,6 @@
+<svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg">
+  <mask id="mask">
+    <rect width="72" height="72" stroke="none" stroke-width="1" fill="#fff" />
+    <circle cx="36" cy="38" r="24" stroke="#none" fill="#000" />
+  </mask>
+</svg>

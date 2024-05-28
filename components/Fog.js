@@ -20,10 +20,10 @@ export const Fog = forwardRef(function Fog(props,ref) {
     map
   }
 
-  console.log(`uniforms: `, uniforms)
+  // console.log(`uniforms: `, uniforms)
   // useEffect(() => {
   //   if (!ref.current) return
-  //   console.log('ref.current: ', ref.current)
+  //   // console.log('ref.current: ', ref.current)
   // }, [])
 
   return (
