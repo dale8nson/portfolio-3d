@@ -60,6 +60,7 @@ export default function Entrance() {
       // console.log('animRefs.current: ', animRefs.current)
       for (const anim of animRefs.current) {
         anim.clampWhenFinished = true
+        anim.setLoop(THREE.LoopOnce)
         setTimeout(() => {
           anim.startAt(0).reset().play()
         }, 3000)

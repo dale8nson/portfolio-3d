@@ -54,3 +54,93 @@
 p {
   margin-bottom: 0.5rem;
 }
+
+@font-face {
+  font-family: spitter;
+  src: url('../public/Spitter.ttf');
+}
+
+@font-face {
+  font-family: pusing-kali;
+  src: url('../public/Pusingkali-BWxnB.ttf');
+}
+
+@font-face {
+  font-family: anissa;
+  src: url('../public/Annisa\ OTF.otf');
+}
+
+@font-face {
+  font-family: anissa-slant;
+  src: url('../public/Annisa\ -\ Slant\ OTF.otf');
+}
+
+@font-face {
+  font-family: calligrapher;
+  src: url('../public/Calligrapher-JRxaE.ttf');
+}
+
+@font-face {
+  font-family: housttely;
+  src: url('../public/HousttelySignature-GOonZ.ttf');
+}
+
+@font-face {
+  font-family: favorite;
+  src: url('../public/FavoriteSDemo-4B9BY.ttf');
+}
+
+@font-face {
+  font-family: wireframe-italic;
+  src: url('../public/WireframeItalic-K70Ry.ttf');
+}
+
+@font-face {
+  font-family: hello;
+  src: url('../public/HelloGoodOldOutlineRegular-K7z7l.ttf');
+}
+
+@font-face {
+  font-family:glossily;
+  src: url('../public/GlossilyEnigmaticRegular-gxr3R.ttf');
+}
+
+@font-face {
+  font-family: kind-regards;
+  src: url('../public/KindRegards-p719r.ttf');
+}
+
+@font-face {
+  font-family:miny ;
+  src: url('../public/MinyFellas-0WO4P.otf');
+}
+
+@font-face {
+  font-family:rnc ;
+  src: url('../public/R&C-Demo.otf');
+}
+
+@font-face {
+  font-family:signerica-thin ;
+  src: url('../public/Signerica_Thin.ttf');
+}
+
+@font-face {
+  font-family:karstar;
+  src: url('../public/Karstar\ Free.ttf');
+}
+
+@font-face {
+  font-family:harst;
+  src: url('../public/HarstGloryDemo-ywMn2.ttf');
+}
+
+@font-face {
+  font-family:first-land;
+  src: url('../public/Firstland\ Demo.otf');
+}
+
+@font-face {
+  font-family: accountant;
+  src: url('../public/aAccountantSignature.ttf');
+}
