@@ -112,6 +112,9 @@ export const ShowRoom = ({ debug, children }) => {
   // console.log('cubeMap: ', cubeMap)
 
   const onPointerOver = e => {
+    // e.preventDefault()
+    console.log('onPointerOver e: ', e)
+    e.currentTarget.defaultPrevented = true
     e.stopPropagation()
     // console.log('onPointerOver')
     setCursorType('pointer')
@@ -119,6 +122,8 @@ export const ShowRoom = ({ debug, children }) => {
   }
 
   const onPointerOut = e => {
+    // e.preventDefault()
+    e.currentTarget.defaultPrevented = true
     e.stopPropagation()
 
     // console.log('onPointerOut')

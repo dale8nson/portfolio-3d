@@ -18,18 +18,27 @@ export const MainMenu = ({onClick: parentClickHandler, onPointerOver, onPointerO
   })
 
   const onAboutClick = e => {
+    console.log('onAboutClick e:', e)
+    e.currentTarget.defaultPrevented = true
+    // e.preventDefault()
     router.push('/home/about')
   }
 
   const onResumeClick = e => {
+    // e.preventDefault()
+    e.currentTarget.defaultPrevented = true
     router.push('/home/resume')
   }
 
   const onProjectsClick = e => {
+    // e.preventDefault()
+    e.currentTarget.defaultPrevented = true
     router.push('/home/projects')
   }
 
   const onContactClick = e => { 
+    // e.preventDefault()
+    e.currentTarget.defaultPrevented = true
     router.push('/home/contact')
   }
 
